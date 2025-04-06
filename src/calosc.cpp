@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <fstream>
 #include <stdio.h>
+#include <queue>
 using namespace std;
 
 class Wezel
@@ -82,6 +83,75 @@ class Krawedz
         }
 };
 
+bool bfs(vector<vector<int>>& graf,int s,int t,vector<int>& rodzic)
+{
+    int rozmiar_grafu=graf.size();
+    vector<bool> odwiedzone(rozmiar_grafu,false); //inicjacja wektora odwiedzone
+
+    //kolejka przechowuje wierzcholki grafu, ktore jeszcze nie zostaly odwiedzone
+	queue<int> kolejka;
+    odwiedzone[s]=true; //wierzcholek s - odwiedzony
+	kolejka.push(s); //wierzcholek s na poczatek kolejki
+	rodzic[s]=-1; //nie ma rodzica bo startowy
+
+	while(!kolejka.empty()) //dopoki kolejka nie jest pusta przeszukujemy graf
+    {
+		int u=kolejka.front(); //wybieramy pierwszy element kolejki
+		kolejka.pop();
+
+		for (int i=0;i<rozmiar_grafu;i++) //patrzymy na sasiadow u
+        {
+			if(odwiedzone[i]==false && graf[u][i]>0) //czy wierzcholek i nie zostal jeszcze odwiedzony i czy istnieje krawedz od u do i
+            {
+				if(i==t) //jest sciezka do t 
+                {
+					rodzic[i]=u; //zapisanie sciezki
+					return true; //jest sciezka = true
+				}
+				kolejka.push(i);
+				rodzic[i]=u;
+				odwiedzone[i]=true;
+			}
+		}
+	}
+	return false; //nie ma sciezki = false
+}
+
+
+int fordFulkerson(vector<vector<int>>& graf, int s, int t)
+{
+    int rozmiar=graf.size();
+	vector<vector<int>> grafkopia=graf; //kopia macierzy sasiedztwa
+		
+
+	vector<int> rodzic(rozmiar); //tablica do przechowywania sciezki w drzewie bfs
+
+	int maxprzeplyw=0; //maksymalny przeplyw
+
+	while(bfs(grafkopia,s,t,rodzic)) //jak jest sciezka powiekszajaca
+    {
+		int przepustowosc=1000000;
+
+		for(int i=t;i!=s;i=rodzic[i]) //znajdowanie minimalnej przepustowosci sciezki
+        {
+			int j=rodzic[i];
+			przepustowosc=min(przepustowosc,grafkopia[j][i]);
+		}
+
+		for(int i=t;i!=s;i=rodzic[i]) //aktualizowanie przepustowosci na biezaco i dodawanie przeplywu w druga strone
+        {
+			int j=rodzic[i];
+		    grafkopia[j][i]-=przepustowosc;
+		    grafkopia[i][j]+=przepustowosc;
+           
+		}
+
+		maxprzeplyw+=przepustowosc;
+	}
+
+	return maxprzeplyw;
+}
+
 
 int main()
 {
@@ -90,6 +160,7 @@ int main()
     int ile_pol, ile_browarow, ile_karczm, ile_skrzyzowan, ile_krawedzi;
     vector<vector<int>> macierz_sasiedztwa_zboze;
     vector<vector<int>> macierz_sasiedztwa_piwo;
+    vector<vector<int>> macierz_sasiedztwa;
 
     cout<<"Wybierz jak chcesz wczytac dane:\n1. Dane z pliku 'dane.txt'\n2. Dane z klawiatury\n> ";
     int wybor;
@@ -124,6 +195,7 @@ int main()
             //macierz sasiedztwa wypelniona zerami
             macierz_sasiedztwa_zboze.resize(ile,vector<int>(ile,0));
             macierz_sasiedztwa_piwo.resize(ile,vector<int>(ile,0));
+            macierz_sasiedztwa.resize(ile,vector<int>(ile,0));
 
             for(int i=0;i<ile_pol;i++)
             {
@@ -132,6 +204,7 @@ int main()
                 plik>>x_>>y_>>jeczmien_;
                 pola.emplace_back(x_,y_,jeczmien_);
                 macierz_sasiedztwa_zboze[ile_skrzyzowan][i]=jeczmien_;
+                macierz_sasiedztwa[ile_skrzyzowan][i]+=jeczmien_;
             }
 
             for(int i=0;i<ile_browarow;i++)
@@ -148,7 +221,8 @@ int main()
                 int zapotrzebowanie_;
                 plik>>x_>>y_>>zapotrzebowanie_;
                 karczmy.emplace_back(x_,y_,zapotrzebowanie_);
-                macierz_sasiedztwa_piwo[ile_skrzyzowan-ile_karczm+1+i][ile-1]=zapotrzebowanie_;
+                macierz_sasiedztwa_piwo[ile_skrzyzowan-ile_karczm+i][ile-1]=zapotrzebowanie_;
+                macierz_sasiedztwa[ile_skrzyzowan-ile_karczm+i][ile-1]+=zapotrzebowanie_;
             }
 
             for(int i=0;i<ile_krawedzi;i++)
@@ -156,12 +230,21 @@ int main()
                 int x_;
                 int y_;
                 int naprawa_;
-                int przepustowosc_zboze_;
-                int przepustowosc_piwo_;
+                int przepustowosc_zboze_=0;
+                int przepustowosc_piwo_=0;
                 plik>>x_>>y_>>przepustowosc_zboze_>>przepustowosc_piwo_>>naprawa_;
                 krawedzie.emplace_back(x_,y_,przepustowosc_zboze_,przepustowosc_piwo_,naprawa_);
                 macierz_sasiedztwa_zboze[x_][y_]=przepustowosc_zboze_;
                 macierz_sasiedztwa_piwo[x_][y_]=przepustowosc_piwo_;
+                if(przepustowosc_piwo_==0)
+                {
+                    macierz_sasiedztwa[x_][y_]+=przepustowosc_zboze_;
+                }
+                else
+                {
+                    macierz_sasiedztwa[x_][y_]+=przepustowosc_piwo_;
+                }
+
             }
             plik.close();
             break;
@@ -196,6 +279,7 @@ int main()
             //macierz sasiedztwa wypelniona zerami
             vector<vector<int>> macierz_sasiedztwa_zboze(ile,vector<int>(ile,0));
             vector<vector<int>> macierz_sasiedztwa_piwo(ile,vector<int>(ile,0));
+            macierz_sasiedztwa.resize(ile,vector<int>(ile,0));
 
             cout<<"Podaj wspolrzedne pola i ile jeczmienia moga wyprodukowac poszczegolne pola:"<<endl;
             for(int i=0;i<ile_pol;i++)
@@ -206,6 +290,7 @@ int main()
                 cin>>x_>>y_>>jeczmien_;
                 pola.emplace_back(x_,y_,jeczmien_);
                 macierz_sasiedztwa_zboze[ile_skrzyzowan][i]=jeczmien_;
+                macierz_sasiedztwa[ile_skrzyzowan][i]+=jeczmien_;
                 cout<<endl;
             }
 
@@ -228,7 +313,8 @@ int main()
                 int zapotrzebowanie_;
                 cin>>x_>>y_>>zapotrzebowanie_;
                 karczmy.emplace_back(x_,y_,zapotrzebowanie_);
-                macierz_sasiedztwa_piwo[ile_skrzyzowan-ile_karczm+1+i][ile-1]=zapotrzebowanie_;
+                macierz_sasiedztwa_piwo[ile_skrzyzowan-ile_karczm+i][ile-1]=zapotrzebowanie_;
+                macierz_sasiedztwa[ile_skrzyzowan-ile_karczm+i][ile-1]+=zapotrzebowanie_;
                 cout<<endl;
             }
 
@@ -246,6 +332,14 @@ int main()
                 macierz_sasiedztwa_zboze[x_][y_]=przepustowosc_zboze_;
                 macierz_sasiedztwa_piwo[x_][y_]=przepustowosc_piwo_;
                 cout<<endl;
+                if(przepustowosc_piwo_==0)
+                {
+                    macierz_sasiedztwa[x_][y_]+=przepustowosc_zboze_;
+                }
+                else
+                {
+                    macierz_sasiedztwa[x_][y_]+=przepustowosc_piwo_;
+                }
             }
             break;
         }
@@ -255,6 +349,8 @@ int main()
 
     //-----------------------------> Drukowanie macierzy <-----------------------------
 
+    //macierz sasiedztwa zborza
+    cout<<"Macierz sasiedztwa (zborze):"<<endl;
     for(int i=0;i<ile;i++)
     {
         for(int j=0;j<ile;j++)
@@ -266,6 +362,8 @@ int main()
 
     cout<<endl;
 
+    //macierz sasiedztwa piwa
+    cout<<"Macierz sasiedztwa (piwo):"<<endl;
     for(int i=0;i<ile;i++)
     {
         for(int j=0;j<ile;j++)
@@ -275,5 +373,19 @@ int main()
         cout<<endl;
     }
 
+    cout<<endl;
+
+    //macierz sasiedztwa wszystko razem
+    cout<<"Macierz sasiedztwa (wszystko razem):"<<endl;
+    for(int i=0;i<ile;i++)
+    {
+        for(int j=0;j<ile;j++)
+        {
+            cout<<setw(5)<<macierz_sasiedztwa[i][j];
+        }
+        cout<<endl;
+    }
+
+    cout<<"Maksymalny przeplyw piwa do karczm: "<<fordFulkerson(macierz_sasiedztwa,ile-2,ile-1)<<endl;
     return 0;
 }
