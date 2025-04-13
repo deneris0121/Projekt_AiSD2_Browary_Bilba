@@ -1,4 +1,5 @@
 #include<iostream>
+#include "pch.h"
 #include "Wezel.h"
 
 using namespace std;

@@ -1,9 +1,2 @@
-﻿  Browar.cpp
-  Calosc.cpp
-  Karczma.cpp
-  Merge_sort.cpp
-  Pole.cpp
-  Wezel.cpp
-C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Pole.cpp(26,38): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
-  Generowanie kodu...
+﻿  Wezel.cpp
   Projekt bilbo.vcxproj -> C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\Projekt bilbo.exe

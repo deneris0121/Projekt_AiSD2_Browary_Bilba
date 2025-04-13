@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Executable>C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\testy_jednostkowe.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="PoleTest.KonstruktorDomyslny" Duration="1" />
+    <TestDuration Test="PoleTest.KonstruktorParametryczny" Duration="1" />
+    <TestDuration Test="PoleTest.OperatorLessThan" Duration="1" />
+    <TestDuration Test="PoleTest.IloczynWektorowy" Duration="1" />
+    <TestDuration Test="PoleTest.AlgorytmGrahama" Duration="1" />
+    <TestDuration Test="PoleTest.MergeSort" Duration="1" />
+  </TestDurations>
+</GtaTestDurations>
