@@ -1,6 +1,14 @@
 {
     "files.associations": {
         "*.embeddedhtml": "html",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "vector": "cpp",
+        "utility": "cpp",
+        "queue": "cpp",
+        "ostream": "cpp",
+        "deque": "cpp",
+        "iosfwd": "cpp",
+        "system_error": "cpp",
+        "xstring": "cpp"
     }
 }

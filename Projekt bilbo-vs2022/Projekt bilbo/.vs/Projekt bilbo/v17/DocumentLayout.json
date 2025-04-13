@@ -1,21 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\",
+  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Calosc.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Calosc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Browar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Browar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Pole.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Graf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A139B6BE-2F84-4F9C-B367-AF949C4567BC}|Projekt bilbo.vcxproj|solutionrelative:Graf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -26,15 +38,54 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Browar.cpp",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Browar.cpp",
+              "RelativeDocumentMoniker": "Browar.cpp",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Browar.cpp",
+              "RelativeToolTip": "Browar.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-09T13:03:35.241Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Calosc.h",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.h",
+              "RelativeDocumentMoniker": "Calosc.h",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.h",
+              "RelativeToolTip": "Calosc.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-09T12:59:44.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Calosc.cpp",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.cpp",
+              "RelativeDocumentMoniker": "Calosc.cpp",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Calosc.cpp",
+              "RelativeToolTip": "Calosc.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-09T12:49:32.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Pole.h",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h",
               "RelativeDocumentMoniker": "Pole.h",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Pole.h",
               "RelativeToolTip": "Pole.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -42,11 +93,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Graf.h",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h",
               "RelativeDocumentMoniker": "Graf.h",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.h",
               "RelativeToolTip": "Graf.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -54,11 +105,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Graf.cpp",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp",
               "RelativeDocumentMoniker": "Graf.cpp",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\Graf.cpp",
               "RelativeToolTip": "Graf.cpp",
               "ViewState": "AgIAAC0AAAAAAAAAAAAowEYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -68,11 +119,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\aisd2\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Projekt_AiSD2_Browary_Bilba\\Projekt bilbo-vs2022\\Projekt bilbo\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAcAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-08T10:10:07.878Z",
               "EditorCaption": ""
