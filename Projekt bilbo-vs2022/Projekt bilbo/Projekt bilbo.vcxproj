@@ -134,6 +134,7 @@
     <ClCompile Include="Karczma.cpp" />
     <ClCompile Include="Krawedz.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Merge_sort.cpp" />
     <ClCompile Include="Pole.cpp" />
     <ClCompile Include="Wezel.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Karczma.h" />
     <ClInclude Include="Krawedz.h" />
     <ClInclude Include="Graf.h" />
+    <ClInclude Include="Merge_sort.h" />
     <ClInclude Include="Pole.h" />
     <ClInclude Include="Wezel.h" />
   </ItemGroup>

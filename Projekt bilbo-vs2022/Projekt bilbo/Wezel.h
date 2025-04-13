@@ -9,5 +9,7 @@ protected:
     int x, y;
 public:
     Wezel(int x_, int y_);
+    int getX() const { return x; }
+    int getY() const { return y; }
 }; 
 #endif
