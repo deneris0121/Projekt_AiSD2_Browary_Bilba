@@ -1,0 +1,52 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+*.exe
+*.dll
+*.lib
+*.pdb
+
+# Precompiled headers
+*.pch
+*.ipch
+
+# Logs and databases
+*.log
+*.mdb
+*.sdf
+*.cache
+*.dbmdl
+
+# Test results
+*.trx
+*.coverage
+*.coveragexml
+
+# Others
+*.tmp
+*.bak
+*.swp
+*.ncb
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Git
+*.orig
+*.rej
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
