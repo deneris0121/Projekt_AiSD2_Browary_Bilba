@@ -12,7 +12,7 @@
 #include "Calosc.h"
 using namespace std;
 
-
+/*
 int uruchomProgram()
 {
     cout << "----------------------> Witaj w Shire! <----------------------" << endl << endl;
@@ -236,3 +236,4 @@ int uruchomProgram()
     cout << "Minimalny koszt naprawy drog do przeplywu: " << przeplywIkoszt.second << " sztuk zlota." << endl;
     return 0;
 }
+*/

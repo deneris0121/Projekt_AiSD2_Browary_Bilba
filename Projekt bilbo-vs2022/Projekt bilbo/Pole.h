@@ -1,20 +1,23 @@
 #ifndef POLE_H
 #define POLE_H
 #include "Wezel.h"
+#include "Cwiartka.h"
 #include<vector>
 using namespace std;
-class Pole : public Wezel
-{
+class Pole{
 private:
+    vector<Wezel> granice_Pola;
     //ile jeczmienia produkuje
-    int jeczmien;
+    double calkowita_wartosc_jeczmienia;
 public:
     Pole();
-    Pole(int x_, int y_, int jeczmien_);
-    //wyswietl informacje o polu
-    void wyswietl_info();
-    bool operator<(const Pole& p) const;
-    static int iloczynWektorowy(const Pole& O, const Pole& A, const Pole& B);
-    static vector<Pole> algorytmGrahama(vector<Pole>& wezly);
+    //Pole(int x_, int y_, int jeczmien_);
+  
+    void dodajPunkt(int x, int y);
+    vector<Wezel>zwrocWierzcholkiPola();
+    double zwroccalkowita_wartosc_jeczmienia();
+    double obliczPolePola();
+    double obliczCalkowitaWartoscJeczmienia(Cwiartka& ktora);
+    void ustawcalkowita_wartosc_jeczmienia(Cwiartka& ktora);
 };
 #endif

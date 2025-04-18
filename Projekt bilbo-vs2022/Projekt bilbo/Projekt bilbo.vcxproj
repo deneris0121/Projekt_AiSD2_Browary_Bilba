@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Browar.cpp" />
     <ClCompile Include="Calosc.cpp" />
+    <ClCompile Include="Cwiartka.cpp" />
     <ClCompile Include="Drukuj.cpp" />
     <ClCompile Include="Graf.cpp" />
     <ClCompile Include="Karczma.cpp" />
@@ -141,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="Browar.h" />
     <ClInclude Include="Calosc.h" />
+    <ClInclude Include="Cwiartka.h" />
     <ClInclude Include="Drukuj.h" />
     <ClInclude Include="Karczma.h" />
     <ClInclude Include="Krawedz.h" />

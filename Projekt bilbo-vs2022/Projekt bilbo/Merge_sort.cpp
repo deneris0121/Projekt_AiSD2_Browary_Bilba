@@ -6,9 +6,9 @@
 
 using namespace std;
 
-Pole start;
+Wezel start(0,0);
 
-bool porownanieSkrajnychPunktow(const Pole& a, const Pole& b) {
+bool porownanieSkrajnychPunktow(const Wezel& a, const Wezel& b) {
 	int c = start.iloczynWektorowy(start, a, b);
 	if (c == 0) {
 		double distA = hypot(a.getX() - start.getX(), a.getY() - start.getY());
@@ -17,9 +17,9 @@ bool porownanieSkrajnychPunktow(const Pole& a, const Pole& b) {
 	}
 	return c > 0;
 }
-void merge(vector<Pole>& punkty, int lewy, int srodek, int prawy) {
-	vector<Pole> L(punkty.begin() + lewy, punkty.begin() + srodek + 1);
-	vector<Pole> R(punkty.begin() + srodek + 1, punkty.begin() + prawy + 1);
+void merge(vector<Wezel>& punkty, int lewy, int srodek, int prawy) {
+	vector<Wezel> L(punkty.begin() + lewy, punkty.begin() + srodek + 1);
+	vector<Wezel> R(punkty.begin() + srodek + 1, punkty.begin() + prawy + 1);
 
 	int i = 0, j = 0, k = lewy;
 	while (i < L.size() && j < R.size()) {
@@ -37,7 +37,7 @@ void merge(vector<Pole>& punkty, int lewy, int srodek, int prawy) {
 		punkty[k++] = R[j++];
 	}
 }
-void mergeSort(vector<Pole>& punkty, int lewy, int prawy, Pole ref) {
+void mergeSort(vector<Wezel>& punkty, int lewy, int prawy, Wezel ref) {
 	start = ref;
 	if (lewy >= prawy) return;
 	int srodek = (lewy + prawy) / 2;

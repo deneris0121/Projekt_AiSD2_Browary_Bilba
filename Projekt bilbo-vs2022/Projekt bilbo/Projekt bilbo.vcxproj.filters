@@ -45,6 +45,9 @@
     <ClCompile Include="Merge_sort.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Cwiartka.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wezel.h">
@@ -72,6 +75,9 @@
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
     <ClInclude Include="Merge_sort.h">
+      <Filter>Pliki źródłowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Cwiartka.h">
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
   </ItemGroup>

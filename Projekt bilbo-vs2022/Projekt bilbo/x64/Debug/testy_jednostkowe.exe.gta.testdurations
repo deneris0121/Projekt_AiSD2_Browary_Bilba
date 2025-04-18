@@ -8,5 +8,15 @@
     <TestDuration Test="PoleTest.IloczynWektorowy" Duration="1" />
     <TestDuration Test="PoleTest.AlgorytmGrahama" Duration="1" />
     <TestDuration Test="PoleTest.MergeSort" Duration="1" />
+    <TestDuration Test="WezelTest.znajdowanieOtoczki" Duration="1" />
+    <TestDuration Test="WezelTest.obliczPoleTrojkata" Duration="1" />
+    <TestDuration Test="WezelTest.OperatorLessThan" Duration="1" />
+    <TestDuration Test="WezelTest.IloczynWektorowy" Duration="1" />
+    <TestDuration Test="WezelTest.MergeSort" Duration="1" />
+    <TestDuration Test="CwiartkaTest.ObliczPoleCwiartki" Duration="1" />
+    <TestDuration Test="WezelTest.znajdowanieOtoczki2" Duration="1" />
+    <TestDuration Test="PoleTest.ObliczPolePola" Duration="1" />
+    <TestDuration Test="CwiartkaTest.obliczaniePolaCwiartki" Duration="1" />
+    <TestDuration Test="PoleTest.Oblicziloscjeczmienia" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
