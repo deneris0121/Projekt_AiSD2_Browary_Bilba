@@ -107,6 +107,20 @@ TEST(CwiartkaTest, obliczaniePolaCwiartki) {
     double wynik = c.onliczPoleCwiartki();
     EXPECT_EQ(wynik, 95);
 }
+TEST(PoleTest, obliczanieSredniejPunktow) {
+    Pole p;
+    p.dodajPunkt(2, 3);
+    p.dodajPunkt(5, 11);
+    p.dodajPunkt(12, 8);
+    p.dodajPunkt(9, 5);
+    p.dodajPunkt(5, 5);
+    p.dodajPunkt(7, 2);
+    p.dodajPunkt(4, 1);
+    p.ustawSredniaXY();
+    Wezel wynik = p.zwrocPunkty();
+    EXPECT_EQ(wynik.getX(), 6);
+    EXPECT_EQ(wynik.getY(), 5);
+}
 TEST(PoleTest, ObliczPolePola) {
     Pole p;
     p.dodajPunkt(2, 3);
@@ -137,8 +151,83 @@ TEST(PoleTest, Oblicziloscjeczmienia) {
     p.dodajPunkt(3, 0);
     p.dodajPunkt(3, 1);
     double wynik=p.obliczCalkowitaWartoscJeczmienia(c);
-    p.ustawcalkowita_wartosc_jeczmienia(c);
+    p.ustawcalkowita_wartosc_jeczmienia(wynik);
     double wynik2 = p.zwroccalkowita_wartosc_jeczmienia();
     EXPECT_NEAR(wynik, 8.57143, 0.0001);
     EXPECT_TRUE(wynik == wynik2);
+}
+TEST(GeometriaTest, PoleWJednejCwiartce) {
+    vector<Cwiartka> c;
+    Cwiartka c1;
+    c1.ustawWydaj(100);
+    c1.dodajWierzcholek(0, 0);
+    c1.dodajWierzcholek(5, 0);
+    c1.dodajWierzcholek(5, 5);
+    c1.dodajWierzcholek(0, 5);
+    c.push_back(c1);
+
+    Pole p;
+    p.dodajPunkt(1, 1);
+    p.dodajPunkt(2, 1);
+    p.dodajPunkt(2, 2);
+    p.dodajPunkt(1, 2);
+
+    std::vector<int> wynik = p.znajdzCwiartki(c);
+
+    ASSERT_EQ(wynik.size(), 1);       // Powinno znaleŸæ jedn¹ cwiartkê
+    EXPECT_EQ(wynik[0], 0);           // A dok³adnie cwiartkê nr 0 (czyli c1)
+}
+
+TEST(GeometriaTest, PoleWObuCwiartkach) {
+    vector<Cwiartka> c;
+    Cwiartka c1, c2;
+    c1.ustawWydaj(100);
+    c2.ustawWydaj(150);
+
+    // Cwiartka 1: (0,0) do (5,5)
+    c1.dodajWierzcholek(0, 0);
+    c1.dodajWierzcholek(5, 0);
+    c1.dodajWierzcholek(5, 5);
+    c1.dodajWierzcholek(0, 5);
+
+    // Cwiartka 2: (5,0) do (10,5)
+    c2.dodajWierzcholek(5, 0);
+    c2.dodajWierzcholek(10, 0);
+    c2.dodajWierzcholek(10, 5);
+    c2.dodajWierzcholek(5, 5);
+
+    c.push_back(c1);
+    c.push_back(c2);
+
+    Pole p;
+    p.dodajPunkt(4, 2);
+    p.dodajPunkt(6, 2);
+    p.dodajPunkt(6, 4);
+    p.dodajPunkt(4, 4);
+
+    std::vector<int> wynik = p.znajdzCwiartki(c);
+
+    ASSERT_EQ(wynik.size(), 2);         // Powinien siê znaleŸæ w dwóch cwiartkach
+    EXPECT_TRUE(std::find(wynik.begin(), wynik.end(), 0) != wynik.end());  // c1
+    EXPECT_TRUE(std::find(wynik.begin(), wynik.end(), 1) != wynik.end());  // c2
+}
+TEST(GeometriaTest, PoleWJednejCwiartce2) {
+    vector<Cwiartka> c;
+    Cwiartka c1;
+    c1.ustawWydaj(400);
+    c1.dodajWierzcholek(0, 0);
+    c1.dodajWierzcholek(-20, 0);
+    c1.dodajWierzcholek(-20, 15);
+    c1.dodajWierzcholek(0, 15);
+    c.push_back(c1);
+
+    Pole p;
+    p.dodajPunkt(-15, 5);
+    p.dodajPunkt(-10, 15);
+    p.dodajPunkt(-5, 10);
+
+    std::vector<int> wynik = p.znajdzCwiartki(c);
+
+    ASSERT_EQ(wynik.size(), 1);       // Powinno znaleŸæ jedn¹ cwiartkê
+    EXPECT_EQ(wynik[0], 0);           // A dok³adnie cwiartkê nr 0 (czyli c1)
 }

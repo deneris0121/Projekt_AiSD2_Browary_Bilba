@@ -9,14 +9,16 @@ using namespace std;
 class Cwiartka{
 private:
 	vector <Wezel> punkty_Cwiartki;
-	int wydajnosc;
+	double wydajnosc;
 public:
     Cwiartka();
-    void ustawWydaj(int w);
+    void ustawWydaj(double w);
     void dodajWierzcholek(int x, int y);
     vector<Wezel> zwrocWierzcholki();
     int zwrocWydajnosc() const;
     double onliczPoleCwiartki();
+    bool czyPunktSieZnajduje(Wezel& p);
+    bool punktNaKrawedzi(Wezel& a, Wezel& b, Wezel& p);
 };
 
 

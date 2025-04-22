@@ -18,5 +18,9 @@
     <TestDuration Test="PoleTest.ObliczPolePola" Duration="1" />
     <TestDuration Test="CwiartkaTest.obliczaniePolaCwiartki" Duration="1" />
     <TestDuration Test="PoleTest.Oblicziloscjeczmienia" Duration="1" />
+    <TestDuration Test="PoleTest.obliczanieSredniejPunktow" Duration="1" />
+    <TestDuration Test="GeometriaTest.PoleWJednejCwiartce" Duration="1" />
+    <TestDuration Test="GeometriaTest.PoleWObuCwiartkach" Duration="1" />
+    <TestDuration Test="GeometriaTest.PoleWJednejCwiartce2" Duration="1" />
   </TestDurations>
 </GtaTestDurations>

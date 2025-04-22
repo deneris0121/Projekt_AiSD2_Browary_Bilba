@@ -1,1 +1,30 @@
-﻿  Projekt bilbo.vcxproj -> C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\Projekt bilbo.exe
+﻿  Calosc.cpp
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(192,100): warning C4244: "=": konwersja z "double" do "_Ty", możliwa utrata danych
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(192,100): warning C4244:         with
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(192,100): warning C4244:         [
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(192,100): warning C4244:             _Ty=int
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(192,100): warning C4244:         ]
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(193,95): warning C4244: "+=": konwersja z "double" do "_Ty", możliwa utrata danych
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(193,95): warning C4244:         with
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(193,95): warning C4244:         [
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(193,95): warning C4244:             _Ty=int
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(193,95): warning C4244:         ]
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(278,98): warning C4244: "=": konwersja z "double" do "_Ty", możliwa utrata danych
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(278,98): warning C4244:         with
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(278,98): warning C4244:         [
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(278,98): warning C4244:             _Ty=int
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(278,98): warning C4244:         ]
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(279,93): warning C4244: "+=": konwersja z "double" do "_Ty", możliwa utrata danych
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(279,93): warning C4244:         with
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(279,93): warning C4244:         [
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(279,93): warning C4244:             _Ty=int
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(279,93): warning C4244:         ]
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Calosc.cpp(147,9): warning C4101: "ile_pol": lokalna zmienna, do której nie istnieje odwołanie
+  Pole.cpp
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Pole.cpp(56,22): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Pole.cpp(57,22): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
+  Wezel.cpp
+C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\Wezel.cpp(24,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+  main.cpp
+  Generowanie kodu...
+  Projekt bilbo.vcxproj -> C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\Projekt bilbo.exe

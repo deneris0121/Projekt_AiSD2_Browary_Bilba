@@ -8,8 +8,7 @@
 
 
 using namespace std;
-Pole::Pole() :calkowita_wartosc_jeczmienia(0) {}
-//Pole::Pole(int x_, int y_, int jeczmien_) : Wezel(x_, y_), calkowita_wartosc_jeczmienia(0) {}
+Pole::Pole() :Wezel(0,0), calkowita_wartosc_jeczmienia(0) {}
 
 
 void Pole::dodajPunkt(int x, int y)
@@ -38,9 +37,49 @@ double Pole::obliczCalkowitaWartoscJeczmienia(Cwiartka& ktora)
     double wynik = (Jcale / Pcale) * Ppole;
     return wynik;
 }
-void Pole::ustawcalkowita_wartosc_jeczmienia(Cwiartka& ktora) {
-    double wynik = Pole::obliczCalkowitaWartoscJeczmienia(ktora);
+void Pole::ustawcalkowita_wartosc_jeczmienia(double wynik) {
     calkowita_wartosc_jeczmienia = wynik;
+}
+
+void Pole::ustawSredniaXY()
+{
+    double sumaX=0;
+    double sumaY=0;
+    if (granice_Pola.empty()) {
+        this->x = 0;
+        this->y = 0;
+    }
+    for (const Wezel& p : granice_Pola){
+        sumaX += p.getX();
+        sumaY += p.getY();
+    }
+    this-> x = sumaX / granice_Pola.size();
+    this-> y = sumaY / granice_Pola.size();
+
+}
+//nie pamietam juz po co to zrobiłam chyba po to by potem ali było łatwo znajdować te punkty???
+Wezel Pole::zwrocPunkty()
+{
+    return Wezel(x,y);
+}
+//dla kazdej cwiartki sprawdzane jest czy punkt się znajduje wewnatrz lub na granicy
+vector<int> Pole::znajdzCwiartki(vector<Cwiartka>& cwiartki)
+{
+    vector<int> przypisaneCwiartki;
+
+    for (int i = 0; i < cwiartki.size(); i++) {
+        Cwiartka& c = cwiartki[i];
+
+        for (Wezel& p : granice_Pola) {
+            if (c.czyPunktSieZnajduje(p)) {
+                przypisaneCwiartki.push_back(i);
+                
+                break;
+            }
+        }
+    }
+
+    return przypisaneCwiartki;
 }
 
 

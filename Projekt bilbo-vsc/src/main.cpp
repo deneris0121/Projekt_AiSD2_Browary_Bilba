@@ -1,6 +1,11 @@
 #include "Calosc.h"
 
+
+#include <iostream>
+using namespace std;
+
 int main() {
-    uruchomProgram();
+   uruchomProgram();
+   
     return 0;
 }

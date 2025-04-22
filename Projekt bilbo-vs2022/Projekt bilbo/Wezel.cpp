@@ -4,14 +4,18 @@
 #include "Merge_sort.h"
 
 using namespace std;
+
 Wezel::Wezel(int x_, int y_) : x(x_), y(y_) {}
+
 bool Wezel::operator<(const Wezel& p) const {
     return(y < p.y) || (y == p.y && x < p.x);
 }
+
 int Wezel::iloczynWektorowy(const Wezel& O, const Wezel& A, const Wezel& B) {
     return (A.getX() - O.getX()) * (B.getY() - O.getY()) -
         (A.getY() - O.getY()) * (B.getX() - O.getX());
 }
+
 vector<Wezel> Wezel::algorytmGrahama(const vector<Wezel>& wezly) {
     if (wezly.size() <= 3) return wezly;
 
@@ -40,4 +44,5 @@ double Wezel::obliczPole(const vector<Wezel>& powloka) {
     return pole;
 
 }
+
 

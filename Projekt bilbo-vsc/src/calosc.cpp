@@ -5,6 +5,7 @@
 #include "Browar.h"
 #include "Karczma.h"
 #include "Krawedz.h"
+#include "Cwiartka.h"
 #include "Pole.h"
 #include "Wezel.h"
 #include "Graf.h"
@@ -12,6 +13,132 @@
 #include "Calosc.h"
 using namespace std;
 
+//funkcja do wypisywania danych dla cwiartki i pola oblicza od razu srednia i ilosc jeczmienia 
+vector<Pole> polaICwiartki() {
+    vector<Cwiartka> cw;
+    vector<Pole> pl;
+    vector<int> iloscwv;
+    vector<int> cwiartki;
+    int iloscw, iloscp;
+    double wydajnosc;
+    cout << "podaj ilosc wspolrzednych i wydajnosc dla kazdej cwiartki" << endl;
+    for (int i = 0; i < 4; i++) {
+        cout << "ilosc wspolrzednych:" << endl;
+        cin >> iloscw;
+        iloscwv.push_back(iloscw);
+        cout << "wydajnosc cwiartki" << endl;
+        cin >> wydajnosc;
+        Cwiartka c; // Tworzymy now¹ cwiartkê
+        c.ustawWydaj(wydajnosc);
+        cw.push_back(c);
+        
+    }
+    for (int i = 0; i < 4; i++) {
+        cout << "Dla cw " << i + 1 << " podaj wspolrzedne" << endl;
+        for (int j = 0; j < iloscwv[i]; j++) {
+            int x_, y_;
+            cout << "Wspolrzedne punktu " << j + 1 << " :" << endl;
+            cin >> x_ >> y_;
+            cw[i].dodajWierzcholek(x_, y_);
+        }
+    }
+    cout << "podaj ilosc pol" << endl;
+    cin >> iloscp;
+    iloscwv.clear();
+    cout << "podaj ilosc wspolrzednych dla pol" << endl;
+    for (int i = 0; i < iloscp; i++) {
+        cout << "dla pola"<<i+1 << endl;
+        cin >> iloscw;
+        iloscwv.push_back(iloscw);
+    }
+    for (int i = 0; i < iloscp; i++) {
+        cout << "Dla pola " << i + 1 << " podaj wspolrzedne" << endl;
+        Pole p; 
+        for (int j = 0; j < iloscwv[i]; j++) {
+            int x_, y_;
+            cout << "Wspolrzedne punktu " << j + 1 << " :" << endl;
+            cin >> x_ >> y_;
+            p.dodajPunkt(x_, y_);
+        }
+        pl.push_back(p); 
+    }
+    for (int i = 0; i < pl.size(); i++) {
+        vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
+        double sumaJeczmienia = 0;
+
+        for (int id : przypisaneCwiartki) { //idzie po wszystkich wytypowanych cwiartkach dla pola
+            double wartosc = pl[i].obliczCalkowitaWartoscJeczmienia(cw[id]);
+            sumaJeczmienia += wartosc;
+        }
+
+        pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia); 
+        pl[i].ustawSredniaXY();
+        cout << "Pole " << i + 1 << " znajduje siê w cwiartkach: ";
+        for (int id : przypisaneCwiartki)
+            cout << id + 1 << " ";
+        cout << "\nWartosc jeczmienia: " << sumaJeczmienia << endl;
+    }
+    return pl;
+
+}
+//to samo co funkcja wyzej tylko ze dla pliku
+vector<Pole> polaICwiartkizPliku(std::istream& in) {
+    vector<Cwiartka> cw;
+    vector<Pole> pl;
+    vector<int> iloscwv;
+    int iloscw, wydajnosc, iloscp;
+
+    for (int i = 0; i < 4; i++) {
+        in >> iloscw;
+        iloscwv.push_back(iloscw);
+
+        in >> wydajnosc;
+        Cwiartka c;
+        c.ustawWydaj(wydajnosc);
+        cw.push_back(c);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < iloscwv[i]; j++) {
+            int x_, y_;
+            in >> x_ >> y_;
+            cw[i].dodajWierzcholek(x_, y_);
+        }
+    }
+
+    in >> iloscp;
+    iloscwv.clear();
+
+    for (int i = 0; i < iloscp; i++) {
+        in >> iloscw;
+        iloscwv.push_back(iloscw);
+    }
+
+    for (int i = 0; i < iloscp; i++) {
+        Pole p;
+        for (int j = 0; j < iloscwv[i]; j++) {
+            int x_, y_;
+            in >> x_ >> y_;
+            p.dodajPunkt(x_, y_);
+        }
+        pl.push_back(p);
+    }
+    
+    for (int i = 0; i < pl.size(); i++) {
+        vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
+        double sumaJeczmienia = 0;
+
+        for (int id : przypisaneCwiartki) {
+            double wartosc = pl[i].obliczCalkowitaWartoscJeczmienia(cw[id]);
+            sumaJeczmienia += wartosc;
+        }
+
+        pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia);
+        pl[i].ustawSredniaXY();
+    }
+
+    return pl;
+}
 
 int uruchomProgram()
 {
@@ -39,11 +166,11 @@ int uruchomProgram()
             cout << "Blad przy wczytywaniu pliku!" << endl;
             return 1;
         }
-
-        plik >> ile_pol >> ile_browarow >> ile_karczm >> ile_skrzyzowan >> ile_krawedzi;
-
         //vector pol
-        vector<Pole> pola;
+        vector<Pole> pola = polaICwiartkizPliku(plik);
+        plik >> ile_browarow >> ile_karczm >> ile_skrzyzowan >> ile_krawedzi;
+
+        
         //vector browarow
         vector<Browar> browary;
         //vector karczm
@@ -59,14 +186,11 @@ int uruchomProgram()
         macierz_sasiedztwa.resize(ile, vector<int>(ile, 0));
         koszty_napraw.resize(ile, vector<int>(ile, 0));
 
-        for (int i = 0; i < ile_pol; i++)
+        for (int i = 0; i < pola.size(); i++)
         {
-            int x_, y_;
-            int jeczmien_;
-            plik >> x_ >> y_ >> jeczmien_;
-            pola.emplace_back(x_, y_, jeczmien_);
-            macierz_sasiedztwa_zboze[ile_skrzyzowan][i] = jeczmien_;
-            macierz_sasiedztwa[ile_skrzyzowan][i] += jeczmien_;
+            
+            macierz_sasiedztwa_zboze[ile_skrzyzowan][i] = pola[i].zwroccalkowita_wartosc_jeczmienia();
+            macierz_sasiedztwa[ile_skrzyzowan][i] += pola[i].zwroccalkowita_wartosc_jeczmienia();
         }
 
         for (int i = 0; i < ile_browarow; i++)
@@ -119,8 +243,9 @@ int uruchomProgram()
         //---------------------------> Wczytywanie z klawiatury <---------------------------
 
         //ile jest pol/browarow/karczm/skrzyzowan/krawedzi
-        cout << "Podaj ilosc pol:\n> ";
-        cin >> ile_pol;
+        //najpierw obliczamy wszystko dla pol i cwiartek
+        vector<Pole> pl = polaICwiartki();
+
         cout << "Podaj ilosc browarow:\n> ";
         cin >> ile_browarow;
         cout << "Podaj ilosc karczm:\n> ";
@@ -130,8 +255,8 @@ int uruchomProgram()
         cout << "Podaj ilosc krawedzi:\n> ";
         cin >> ile_krawedzi;
 
-        //vector pol
-        vector<Pole> pola;
+        
+        
         //vector browarow
         vector<Browar> browary;
         //vector karczm
@@ -147,16 +272,11 @@ int uruchomProgram()
         macierz_sasiedztwa.resize(ile, vector<int>(ile, 0));
         koszty_napraw.resize(ile, vector<int>(ile, 0));
 
-        cout << "Podaj wspolrzedne pola i ile jeczmienia moga wyprodukowac poszczegolne pola:" << endl;
-        for (int i = 0; i < ile_pol; i++)
+        //wstawiamy do macierzy wczesniej obliczon¹ wartosc jeczmienia
+        for (int i = 0; i < pl.size(); i++)
         {
-            cout << "> ";
-            int x_, y_;
-            int jeczmien_;
-            cin >> x_ >> y_ >> jeczmien_;
-            pola.emplace_back(x_, y_, jeczmien_);
-            macierz_sasiedztwa_zboze[ile_skrzyzowan][i] = jeczmien_;
-            macierz_sasiedztwa[ile_skrzyzowan][i] += jeczmien_;
+            macierz_sasiedztwa_zboze[ile_skrzyzowan][i] = pl[i].zwroccalkowita_wartosc_jeczmienia();
+            macierz_sasiedztwa[ile_skrzyzowan][i] += pl[i].zwroccalkowita_wartosc_jeczmienia();
             cout << endl;
         }
 
