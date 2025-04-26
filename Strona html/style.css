@@ -1,0 +1,195 @@
+body {
+    background-color: rgb(50, 155, 24);
+    background-image: url(images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.end {
+    background-color: rgb(50, 155, 24);
+    background-image: url(images/Asset\ 1-100.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-family: "Almendra SC", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4.5rem;
+}
+
+nav {
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Exit-Button {
+    padding: 30px;
+}
+
+.header {
+    width: 90%;
+    text-align: center;
+}
+
+.Archive-Button {
+    padding: 30px;
+}
+
+main {
+    min-height: 70vh;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5vh 20vh;
+}
+.menu {
+    background-image: url(images/menu-bg.png);
+    height: 646px;
+    width: 457px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    aspect-ratio: auto;
+    position: absolute;
+}
+
+.deska {
+    margin: 63px 73px 6px 73px;
+    border: 5px solid;
+    border-color: #805430;
+    background-color: #D9A02B;
+    justify-items: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deska1 {
+    margin: 12px 73px 12px 73px;
+    border: 5px solid;
+    border-color: #805430;
+    background-color: #D9A02B;
+    justify-items: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+
+h2 {
+    font-family: "Almendra SC", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 2rem;
+}
+
+.data {
+    padding: 10px;
+}
+
+.data1 {
+    padding: 10px;
+    font-family: "Almendra SC", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+.result {
+    padding: 10px;
+    font-family: "Almendra SC", serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+
+.screw {
+    margin: 0px 5px;
+    border: 3px solid;
+    border-radius: 50%;
+    background-color: #907C77;
+    border-color: #6D5648;
+    width: 6px;
+    height: 6px;
+}
+
+
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    height: 50px;
+    width: 254px;
+    background-color: #EED5A2;
+    border: 5px solid;
+    border-color: #7F5934;
+    border-radius: 10px;
+    margin: 6px 101px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-input {
+    font-family: "Almendra SC", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.125rem;
+    color: #8F8F8F;
+    height: 50px;
+    width: 254px;
+    background-color: #EED5A2;
+    border: 5px solid;
+    border-color: #7F5934;
+    border-radius: 10px;
+    margin: 6px 0px;
+    text-align: center;
+}
+
+
+.accept-button {
+    font-family: "Almendra SC", serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 1.125rem;
+    color: #4D3F1C;
+    height: 50px;
+    width: 254px;
+    background-color: #8DD228;
+    border: 5px solid;
+    border-color: #7F5934;
+    border-radius: 10px;
+    margin: 6px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.retry-button {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

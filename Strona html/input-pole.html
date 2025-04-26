@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page - Browary Bilba</title>
+    <link rel="stylesheet" href="css-reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Almendra+SC&family=Quintessential&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="Exit-Button">
+            <img src="images/Button-Ezit.svg" alt="exit button" href="end.html">
+        </div>
+        <div class="header">
+            <h1>Witaj w Shire!</h1>
+        </div>
+        <div class="Archive-Button">
+            <img src="images/Button-Archive.svg" alt="archive button" href="archive.html">
+        </div>
+    </nav>
+    <main id="menuContainer">
+        <script>
+            const n = 5; // Liczba pól (podstron)
+            let current = 0;
+
+            const menu = document.getElementById("menuContainer");
+
+            function renderForm(index) {
+            menu.innerHTML = `
+            <div class="menu">
+                <div class="deska">
+                    <div class="screw"></div>
+                    <h2 class="data1">Podaj dane pola ${index + 1}:</h2>
+                    <div class="screw"></div>
+                </div>
+                <div class="wrapper">
+                    <input type="text" name="xpole${index}" placeholder="Współrzędna x" class="text-input">
+                    <input type="text" name="ypole${index}" placeholder="Współrzędna y" class="text-input">
+                    <input type="text" name="jeczmien${index}" placeholder="Produkcja jęczmienia" class="text-input">
+                    <button class="accept-button">Dalej</button>
+                </div>
+            </div>
+            `;
+
+            menu.querySelector(".accept-button").addEventListener   ("click", () => {
+               if (current < n - 1) 
+                {
+                 current++;
+                 renderForm(current);
+                } 
+                else 
+                {
+                window.location.href = "input-browary.html";
+                }
+                });
+            }
+
+            renderForm(current);
+        </script>
+    </main>
+    
+</body>
+</html>
