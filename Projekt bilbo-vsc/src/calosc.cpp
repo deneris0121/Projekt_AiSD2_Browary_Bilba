@@ -14,12 +14,12 @@
 using namespace std;
 
 //funkcja do wypisywania danych dla cwiartki i pola oblicza od razu srednia i ilosc jeczmienia 
-vector<Pole> polaICwiartki() {
+vector<Pole> polaICwiartki(int iloscp) {
     vector<Cwiartka> cw;
     vector<Pole> pl;
     vector<int> iloscwv;
     vector<int> cwiartki;
-    int iloscw, iloscp;
+    int iloscw;
     double wydajnosc;
     cout << "podaj ilosc wspolrzednych i wydajnosc dla kazdej cwiartki" << endl;
     for (int i = 0; i < 4; i++) {
@@ -42,8 +42,7 @@ vector<Pole> polaICwiartki() {
             cw[i].dodajWierzcholek(x_, y_);
         }
     }
-    cout << "podaj ilosc pol" << endl;
-    cin >> iloscp;
+    
     iloscwv.clear();
     cout << "podaj ilosc wspolrzednych dla pol" << endl;
     for (int i = 0; i < iloscp; i++) {
@@ -82,11 +81,11 @@ vector<Pole> polaICwiartki() {
 
 }
 //to samo co funkcja wyzej tylko ze dla pliku
-vector<Pole> polaICwiartkizPliku(std::istream& in) {
+vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
     vector<Cwiartka> cw;
     vector<Pole> pl;
     vector<int> iloscwv;
-    int iloscw, wydajnosc, iloscp;
+    int iloscw, wydajnosc;
 
     for (int i = 0; i < 4; i++) {
         in >> iloscw;
@@ -106,7 +105,6 @@ vector<Pole> polaICwiartkizPliku(std::istream& in) {
         }
     }
 
-    in >> iloscp;
     iloscwv.clear();
 
     for (int i = 0; i < iloscp; i++) {
@@ -167,10 +165,10 @@ int uruchomProgram()
             return 1;
         }
         //vector pol
-        vector<Pole> pola = polaICwiartkizPliku(plik);
-        plik >> ile_browarow >> ile_karczm >> ile_skrzyzowan >> ile_krawedzi;
-
         
+        plik >> ile_pol >> ile_browarow >> ile_karczm >> ile_skrzyzowan >> ile_krawedzi;
+
+        vector<Pole> pola = polaICwiartkizPliku(plik, ile_pol);
         //vector browarow
         vector<Browar> browary;
         //vector karczm
@@ -244,8 +242,9 @@ int uruchomProgram()
 
         //ile jest pol/browarow/karczm/skrzyzowan/krawedzi
         //najpierw obliczamy wszystko dla pol i cwiartek
-        vector<Pole> pl = polaICwiartki();
-
+        
+        cout << "Podaj ilosc pol:\n> ";
+        cin >> ile_pol;
         cout << "Podaj ilosc browarow:\n> ";
         cin >> ile_browarow;
         cout << "Podaj ilosc karczm:\n> ";
@@ -255,7 +254,7 @@ int uruchomProgram()
         cout << "Podaj ilosc krawedzi:\n> ";
         cin >> ile_krawedzi;
 
-        
+        vector<Pole> pl = polaICwiartki(ile_pol);
         
         //vector browarow
         vector<Browar> browary;

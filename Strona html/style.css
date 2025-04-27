@@ -1,3 +1,9 @@
+/* Resetowanie marginesów i paddingów */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     background-color: rgb(50, 155, 24);
     background-image: url(images/background.jpg);
@@ -150,6 +156,8 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%; /* Pełna szerokość kontenera */
+    box-sizing: border-box; /* Upewnij się, że padding nie wpływa na szerokość */
 }
 
 .text-input {
@@ -164,7 +172,7 @@ h2 {
     border: 5px solid;
     border-color: #7F5934;
     border-radius: 10px;
-    margin: 6px 0px;
+    margin: 6px 100px;
     text-align: center;
 }
 
@@ -181,7 +189,7 @@ h2 {
     border: 5px solid;
     border-color: #7F5934;
     border-radius: 10px;
-    margin: 6px 0px;
+    margin: 6px 100px;
     display: flex;
     justify-content: center;
     align-items: center;

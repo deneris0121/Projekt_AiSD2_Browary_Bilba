@@ -24,42 +24,80 @@
     </nav>
     <main id="menuContainer">
         <script>
-            const n = 5; // Liczba pól (podstron)
+            
+            // Odczyt danych z localStorage
+            const pola = localStorage.getItem("pola");
+            const browary = localStorage.getItem("browary");
+            const karczmy = localStorage.getItem("karczmy");
+            const skrzyzowania = localStorage.getItem("skrzyzowania");
+            const krawedzie = localStorage.getItem("krawedzie");
+
+            // Możesz teraz użyć tych danych w formularzu lub w innych elementach
+            console.log(pola, browary, karczmy, skrzyzowania, krawedzie);
+
+            const n = parseInt(pola); // Liczba pól (podstron)
             let current = 0;
+
+            let xpole = []; // ilość punktów dla każdego pila
+            
+            let currentid = 0; // aktualny punkt w ćwiartce
+
+             // Pobranie liczby punktów dla każdego pola z localStorage
+             for (let i = 0; i < n; i++) {
+                let points = localStorage.getItem(`xpole${i}`);
+                points = parseInt(points);
+                xpole[i] = points;
+            }
 
             const menu = document.getElementById("menuContainer");
 
-            function renderForm(index) {
-            menu.innerHTML = `
-            <div class="menu">
-                <div class="deska">
-                    <div class="screw"></div>
-                    <h2 class="data1">Podaj dane pola ${index + 1}:</h2>
-                    <div class="screw"></div>
-                </div>
-                <div class="wrapper">
-                    <input type="text" name="xpole${index}" placeholder="Współrzędna x" class="text-input">
-                    <input type="text" name="ypole${index}" placeholder="Współrzędna y" class="text-input">
-                    <input type="text" name="jeczmien${index}" placeholder="Produkcja jęczmienia" class="text-input">
-                    <button class="accept-button">Dalej</button>
-                </div>
-            </div>
-            `;
+            function renderForm(quarterIndex, pointIndex) {
+                menu.innerHTML = `
+                    <div class="menu">
+                        <div class="deska">
+                            <div class="screw"></div>
+                            <h2 class="data1">Pole ${quarterIndex + 1}, Punkt ${pointIndex + 1}:</h2>
+                            <div class="screw"></div>
+                        </div>
+                        <div class="wrapper">
+                            <input type="number" id="wspolrzednepolaX" placeholder="Współrzędna X" class="text-input">
+                            <input type="number" id="wspolrzednepolaY" placeholder="Współrzędna Y" class="text-input">
+                            <button class="accept-button">Dalej</button>
+                        </div>
+                    </div>
+                `;
 
-            menu.querySelector(".accept-button").addEventListener   ("click", () => {
-               if (current < n - 1) 
-                {
-                 current++;
-                 renderForm(current);
-                } 
-                else 
-                {
-                window.location.href = "input-browary.html";
+                menu.querySelector(".accept-button").addEventListener("click", () => {
+               
+                const wspolrzednepolaX = document.getElementById("wspolrzednepolaX").value;
+                const wspolrzednepolaY = document.getElementById("wspolrzednepolaY").value;
+
+                // Zapisz współrzędne do localStorage z odpowiednim kluczem
+                localStorage.setItem(`pole${quarterIndex}_punkt${pointIndex}_X`, wspolrzednepolaX);
+                localStorage.setItem(`pole${quarterIndex}_punkt${pointIndex}_Y`, wspolrzednepolaY);
+
+                // Obsługa przejścia do następnego punktu / ćwiartki
+                if (currentid < xpole[current] - 1) {
+                    // Jeśli jeszcze są punkty w tej ćwiartce
+                    currentid++;
+                    renderForm(current, currentid);
+                } else {
+                    // Jeśli skończyliśmy wszystkie punkty w tej ćwiartce
+                    if (current < n - 1) {
+                        current++;
+                        currentid = 0;
+                        renderForm(current, currentid);
+                    } else {
+                        // Wszystko skończone, przejście dalej
+                        window.location.href = "input-browary.html";
+                    }   
                 }
                 });
             }
 
-            renderForm(current);
+            // Start
+            renderForm(current, currentid);
+        </script>
         </script>
     </main>
     

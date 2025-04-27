@@ -30,14 +30,38 @@
                 <div class="screw"></div>
             </div>
             <div class="wrapper">
-                <input type="text" name="pola" id="pola" placeholder="Ilość pól" class="text-input">
-                <input type="text" name="browary" id="browary" placeholder="Ilość browarów" class="text-input">
-                <input type="text" name="karczmy" id="karczmy" placeholder="Ilość karczm" class="text-input">
-                <input type="text" name="skrzyzowania" id="skrzyzowania" placeholder="Ilość skrzyżowań" class="text-input">
-                <input type="text" name="krawedzie" id="krawedzie" placeholder="Ilość krawędzi" class="text-input">
-                <a href="input-pole.html" class="accept-button">Akceptuj</a>
+                <form id="dataForm">
+                    <input type="text" name="pola" id="pola" placeholder="Ilość pól" class="text-input">
+                    <input type="text" name="browary" id="browary" placeholder="Ilość browarów" class="text-input">
+                    <input type="text" name="karczmy" id="karczmy" placeholder="Ilość karczm" class="text-input">
+                    <input type="text" name="skrzyzowania" id="skrzyzowania" placeholder="Ilość skrzyżowań" class="text-input">
+                    <input type="text" name="krawedzie" id="krawedzie" placeholder="Ilość krawędzi" class="text-input">
+                    <button type="submit" class="accept-button">Akceptuj</button>
+                </form>
             </div>
         </div>
     </main>
+    <script>
+        document.getElementById("dataForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Pobieranie danych z formularza
+            const pola = document.getElementById("pola").value;
+            const browary = document.getElementById("browary").value;
+            const karczmy = document.getElementById("karczmy").value;
+            const skrzyzowania = document.getElementById("skrzyzowania").value;
+            const krawedzie = document.getElementById("krawedzie").value;
+
+            // Przechowywanie danych w localStorage
+            localStorage.setItem("pola", pola);
+            localStorage.setItem("browary", browary);
+            localStorage.setItem("karczmy", karczmy);
+            localStorage.setItem("skrzyzowania", skrzyzowania);
+            localStorage.setItem("krawedzie", krawedzie);
+
+            // Przekierowanie na stronę input-pole.html
+            window.location.href = "input-cwiartki.html";
+        });
+    </script>
 </body>
 </html>

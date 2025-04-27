@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page - Browary Bilba</title>
+    <link rel="stylesheet" href="css-reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Almendra+SC&family=Quintessential&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="Exit-Button">
+            <img src="images/Button-Ezit.svg" alt="exit button" href="end.html">
+        </div>
+        <div class="header">
+            <h1>Witaj w Shire!</h1>
+        </div>
+        <div class="Archive-Button">
+            <img src="images/Button-Archive.svg" alt="archive button" href="archive.html">
+        </div>
+    </nav>
+  
+    <main id="menuContainer">
+        <script>
+            const n = 4; // liczba ćwiartek
+            let xwierzch = []; // ilość punktów dla każdej ćwiartki
+            let current = 0; // aktualna ćwiartka
+            let currentid = 0; // aktualny punkt w ćwiartce
+
+             // Pobranie liczby punktów dla każdej ćwiartki z localStorage
+             for (let i = 0; i < n; i++) {
+                let points = localStorage.getItem(`xwierzch${i}`);
+                points = parseInt(points);
+                if (isNaN(points) || points <= 0) {
+                    alert(`Błąd: Niepoprawna liczba punktów dla ćwiartki ${i + 1}. Wartość musi być liczbą większą niż 0.`);
+                    window.location.href = "poprzednia_strona.html"; // Możesz zmienić na odpowiednią stronę
+                    break;
+                }
+                xwierzch[i] = points;
+            }
+
+            const menu = document.getElementById("menuContainer");
+
+            function renderForm(quarterIndex, pointIndex) {
+                menu.innerHTML = `
+                    <div class="menu">
+                        <div class="deska">
+                            <div class="screw"></div>
+                            <h2 class="data1">Ćwiartka ${quarterIndex + 1}, Punkt ${pointIndex + 1}:</h2>
+                            <div class="screw"></div>
+                        </div>
+                        <div class="wrapper">
+                            <input type="number" id="wspolrzedneX" placeholder="Współrzędna X" class="text-input">
+                            <input type="number" id="wspolrzedneY" placeholder="Współrzędna Y" class="text-input">
+                            <button class="accept-button">Dalej</button>
+                        </div>
+                    </div>
+                `;
+
+                menu.querySelector(".accept-button").addEventListener("click", () => {
+                    const x = document.getElementById("wspolrzedneX").value;
+                    const y = document.getElementById("wspolrzedneY").value;
+
+                    // Zapisz współrzędne do localStorage z odpowiednim kluczem
+                    localStorage.setItem(`cwiartka${quarterIndex}_punkt${pointIndex}_X`, x);
+                    localStorage.setItem(`cwiartka${quarterIndex}_punkt${pointIndex}_Y`, y);
+
+                    // Obsługa przejścia do następnego punktu / ćwiartki
+                    if (currentid < xwierzch[current] - 1) {
+                        // Jeśli jeszcze są punkty w tej ćwiartce
+                        currentid++;
+                        renderForm(current, currentid);
+                    } else {
+                        // Jeśli skończyliśmy wszystkie punkty w tej ćwiartce
+                        if (current < n - 1) {
+                            current++;
+                            currentid = 0;
+                            renderForm(current, currentid);
+                        } else {
+                            // Wszystko skończone, przejście dalej
+                            window.location.href = "ilosc_wspolrzednych_dla_kazdego_pola.html";
+                        }
+                    }
+                });
+            }
+
+            // Start
+            renderForm(current, currentid);
+        </script>
+    </main>
+</body>
+</html>
