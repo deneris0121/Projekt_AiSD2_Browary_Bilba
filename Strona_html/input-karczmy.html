@@ -24,7 +24,8 @@
     </nav>
     <main id="menuContainer">
         <script>
-            const n = 5;
+            const karczmy = localStorage.getItem("karczmy");
+            const n =  parseInt(karczmy);
             let current = 0;
 
             const menu = document.getElementById("menuContainer");
@@ -38,15 +39,22 @@
                     <div class="screw"></div>
                 </div>
                 <div class="wrapper">
-                    <input type="text" name="xpole${index}" placeholder="Współrzędna x" class="text-input">
-                    <input type="text" name="ypole${index}" placeholder="Współrzędna y" class="text-input">
-                    <input type="text" name="jeczmien${index}" placeholder="Zapotrzebowanie na piwo" class="text-input">
+                    <input type="text" id="xkarczmy${index}" name="xkarczmy${index}" placeholder="Współrzędna x" class="text-input">
+                    <input type="text" id="ykarczmy${index}" name="ykarczmy${index}" placeholder="Współrzędna y" class="text-input">
+                    <input type="text" id="jeczmienk${index}" name="jeczmienk${index}" placeholder="Zapotrzebowanie na piwo" class="text-input">
                     <button class="accept-button">Dalej</button>
                 </div>
             </div>
             `;
 
             menu.querySelector(".accept-button").addEventListener   ("click", () => {
+                const xkarczmy = document.getElementById(`xkarczmy${index}`).value;
+                    const ykarczmy = document.getElementById(`ykarczmy${index}`).value;
+                    const jeczmienk = document.getElementById(`jeczmienk${index}`).value;
+                    // Przechowywanie danych w localStorage
+                    localStorage.setItem(`xkarczmy${index}`, xkarczmy);
+                    localStorage.setItem(`ykarczmy${index}`, ykarczmy);
+                    localStorage.setItem(`jeczmienk${index}`, jeczmienk);
                if (current < n - 1) 
                 {
                  current++;

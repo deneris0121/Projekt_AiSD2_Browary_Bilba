@@ -27,18 +27,14 @@
             
             // Odczyt danych z localStorage
             const pola = localStorage.getItem("pola");
-            const browary = localStorage.getItem("browary");
-            const karczmy = localStorage.getItem("karczmy");
-            const skrzyzowania = localStorage.getItem("skrzyzowania");
-            const krawedzie = localStorage.getItem("krawedzie");
 
             // Możesz teraz użyć tych danych w formularzu lub w innych elementach
-            console.log(pola, browary, karczmy, skrzyzowania, krawedzie);
+            console.log(pola);
 
             const n = parseInt(pola); // Liczba pól (podstron)
             let current = 0;
 
-            let xpole = []; // ilość punktów dla każdego pila
+            let wspolrzedneIlosci = []; // ilość punktów dla każdego pila
             
             let currentid = 0; // aktualny punkt w ćwiartce
 
@@ -46,7 +42,12 @@
              for (let i = 0; i < n; i++) {
                 let points = localStorage.getItem(`xpole${i}`);
                 points = parseInt(points);
-                xpole[i] = points;
+                if (isNaN(points) || points <= 0) {
+                    alert(`Błąd: Niepoprawna liczba punktów dla pola ${i + 1}. Wartość musi być liczbą większą niż 0.`);
+                    window.location.href = "poprzednia_strona.html"; // Możesz zmienić na odpowiednią stronę
+                    break;
+                }
+                wspolrzedneIlosci[i] = points;
             }
 
             const menu = document.getElementById("menuContainer");
@@ -77,7 +78,7 @@
                 localStorage.setItem(`pole${quarterIndex}_punkt${pointIndex}_Y`, wspolrzednepolaY);
 
                 // Obsługa przejścia do następnego punktu / ćwiartki
-                if (currentid < xpole[current] - 1) {
+                if (currentid < wspolrzedneIlosci[current] - 1) {
                     // Jeśli jeszcze są punkty w tej ćwiartce
                     currentid++;
                     renderForm(current, currentid);
@@ -97,7 +98,6 @@
 
             // Start
             renderForm(current, currentid);
-        </script>
         </script>
     </main>
     
