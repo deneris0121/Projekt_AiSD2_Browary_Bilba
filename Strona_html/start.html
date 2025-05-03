@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browary Bilba</title>
-    <link rel="stylesheet" href="css-reset.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css-reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=Almendra+SC&family=Quintessential&display=swap" rel="stylesheet">
@@ -13,13 +13,13 @@
 <body class="end"> <!--tło z bilbo-->
     <nav>
         <div class="Exit-Button">
-            <img src="images/Button-Ezit.svg" alt="exit button" href="end.html">
+            <img src="{{ url_for('static', filename='Button-Ezit.svg') }}" alt="exit button" href="end.html">
         </div>
         <div class="header">
             <h1>Witaj w Shire!</h1>
         </div>
         <div class="Archive-Button">
-            <img src="images/Button-Archive.svg" alt="archive button" href="archive.html">
+            <img src="{{ url_for('static', filename='Button-Archive.svg') }}" alt="archive button" href="archive.html">
         </div>
     </nav>
     <main>
@@ -30,8 +30,8 @@
                 <div class="screw"></div>
             </div>
             <div class="wrapper">
-                <a href="index.html" class="accept-button">Wprowadz recznie dane</a>
-                <a href="index.html" class="accept-button">Wprowadz z pliku dane</a>
+                <a href="{{ url_for('index') }}" class="accept-button">Wprowadz recznie dane</a>
+                <a href="{{ url_for('index') }}" class="accept-button">Wprowadz z pliku dane</a>
             </div>
         </div>
     </main>
