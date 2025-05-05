@@ -5,6 +5,5 @@
 #include "Pole.h"
 using namespace std;
 int uruchomProgram();
-vector<Pole> polaICwiartki(int iloscp);
 vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp);
 #endif

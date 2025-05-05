@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-   uruchomProgram();
-   
+    uruchomProgram();
+
     return 0;
 }

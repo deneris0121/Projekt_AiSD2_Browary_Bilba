@@ -26,32 +26,111 @@
         <div class="menu">
             <div class="deska">
                 <div class="screw"></div>
-                <h2 class="data">Wynik</h2>
-                <div class="screw"></div>
-            </div>
-            <div class="deska1">
-                <div class="screw"></div>
-                <h3 class="result">Maksymalny przepływ</h3>
-                <div class="screw"></div>
-            </div>
-            <div class="box"></div>
-            <div class="deska1">
-                <div class="screw"></div>
-                <h3 class="result">Z naprawą dróg</h3>
-                <div class="screw"></div>
-            </div>
-            <div class="box"></div>
-            <div class="deska1">
-                <div class="screw"></div>
-                <h3 class="result">Pola</h3>
+                <h2 class="data">Prosze czekać analizowanie danych...</h2>
                 <div class="screw"></div>
             </div>
             <div class="box"></div>
             <div class="retry-button">
-                <img src="images/Button-Retry.png" alt="retry button" href="archive.html">
+                <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
             </div>
             
         </div>
     </main>
+    <script>
+        async function sendDataToServer() {
+            const data = {};
+
+            // Podstawowe liczby
+            data.pola = parseInt(localStorage.getItem("pola"));
+            data.browary = parseInt(localStorage.getItem("browary"));
+            data.karczmy = parseInt(localStorage.getItem("karczmy"));
+            data.skrzyzowania = parseInt(localStorage.getItem("skrzyzowania"));
+            data.krawedzie = parseInt(localStorage.getItem("krawedzie"));
+            // xwierzch & jeczmien
+            data.xwierzch = [];
+            data.jeczmien = [];
+            for (let i = 0; i < 4; i++) {
+                data.xwierzch.push(parseInt(localStorage.getItem(`xwierzch${i}`)));
+                data.jeczmien.push(parseInt(localStorage.getItem(`jeczmien${i}`)));
+            }
+            // wspolrzedne ćwiartek
+            data.cwiartki = [];
+            for (let q = 0; q < 4; q++) {
+                const cw = [];
+                for(let i=0;i<data.xwierzch[q];i++){
+                    const x = localStorage.getItem(`cwiartka${q}_punkt${i}_X`);
+                    const y = localStorage.getItem(`cwiartka${q}_punkt${i}_Y`);
+                    if (x === null || y === null) break;
+                    cw.push([parseInt(x), parseInt(y)]);
+                }
+                data.cwiartki.push(cw);
+            }
+             // xpole
+            data.xpole = [];
+            for (let i = 0; i < data.pola; i++) {
+                data.xpole.push(parseInt(localStorage.getItem(`xpole${i}`)));
+            }   
+
+             // wspolrzedne pol
+            data.wsp_pola = [];
+            for (let i = 0; i < data.pola; i++) {
+                const wsp = [];
+                for (let j = 0; j < data.xpole[i]; j++) {
+                    const x = localStorage.getItem(`pole${i}_punkt${j}_X`);
+                    const y = localStorage.getItem(`pole${i}_punkt${j}_Y`);
+                    wsp.push([parseInt(x), parseInt(y)]);
+                }
+                data.wsp_pola.push(wsp);
+            }
+
+            // browary
+            data.browary_data = [];
+            for (let i = 0; i < data.browary; i++) {
+                data.browary_data.push([
+                    parseInt(localStorage.getItem(`xbrowary${i}`)),
+                    parseInt(localStorage.getItem(`ybrowary${i}`)),
+                    parseInt(localStorage.getItem(`piwo${i}`))
+                ]);
+            }
+
+            // karczmy
+            data.karczmy_data = [];
+            for (let i = 0; i < data.karczmy; i++) {
+                data.karczmy_data.push([
+                    parseInt(localStorage.getItem(`xkarczmy${i}`)),
+                    parseInt(localStorage.getItem(`ykarczmy${i}`)),
+                    parseInt(localStorage.getItem(`jeczmienk${i}`))
+                ]);
+            }
+
+            // skrzyzowania
+            data.skrzyzowania_data = [];
+            for (let i = 0; i < data.skrzyzowania; i++) {
+                data.skrzyzowania_data.push([
+                    parseInt(localStorage.getItem(`xskrzyzowania${i}`)),
+                    parseInt(localStorage.getItem(`yskrzyzowania${i}`)),
+                    parseInt(localStorage.getItem(`jeczmiens${i}`)),
+                    parseInt(localStorage.getItem(`piwos${i}`)),
+                    parseInt(localStorage.getItem(`naprawas${i}`))
+                ]);
+            }
+
+            // Wyślij do backendu
+            await fetch("/save_data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+
+        console.log("Dane wysłane!");
+        // Po wysłaniu danych przekieruj na stronę z wynikami
+        window.location.href = "/result";
+    }
+
+    // Wywołanie po załadowaniu strony
+    window.onload = sendDataToServer;
+        </script>
 </body>
 </html>

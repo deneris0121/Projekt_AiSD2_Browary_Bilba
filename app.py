@@ -1,9 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify,redirect, url_for, session
 import json
+import subprocess
+import os
 
 app = Flask(__name__,
             template_folder='Strona_html',      # Szablony HTML
             static_folder='Strona_html')        # Statyczne pliki (CSS, obrazy)
+
+app.secret_key = 'tajny_klucz' 
 #strona poczatkowa
 @app.route('/')
 def home():
@@ -40,10 +44,7 @@ def input_karczmy():
 @app.route('/input-skrzyzowania')
 def input_skrzyzowania():
     return render_template('input-skrzyzowania.html')
-#end
-@app.route('/end')
-def end():
-    return render_template('end.html')
+
 #output
 @app.route('/output')
 def output():
@@ -53,5 +54,65 @@ def output():
 def archive():
     return render_template('archive.html')
 
+@app.route('/save_data', methods=['POST'])
+def save_data():
+    data = request.get_json()
+
+    # Ścieżka docelowa zapisu pliku
+    file_path = r"C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\dane.txt"
+    
+    # Usuń stary plik jeśli istnieje
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    # Zapisz nowy plik
+    with open(file_path, "w") as f:
+        f.write(f"{data['pola']} {data['browary']} {data['karczmy']} {data['skrzyzowania']} {data['krawedzie']}\n")
+
+        for x, j in zip(data['xwierzch'], data['jeczmien']):
+            f.write(f"{x} {j}\n")
+
+        for cw in data['cwiartki']:
+            for x, y in cw:
+                f.write(f"{x} {y} ")
+            f.write("\n")
+
+        for xp in data['xpole']:
+            f.write(f"{xp}\n")
+
+        for wsp in data['wsp_pola']:
+            for x, y in wsp:
+                f.write(f"{x} {y} ")
+            f.write("\n")
+
+        for b in data['browary_data']:
+            f.write(" ".join(map(str, b)) + "\n")
+
+        for k in data['karczmy_data']:
+            f.write(" ".join(map(str, k)) + "\n")
+
+        for s in data['skrzyzowania_data']:
+            f.write(" ".join(map(str, s)) + "\n")
+
+    exe_path = r"C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\Projekt bilbo.exe"
+
+    # Upewnij się, że plik istnieje
+    if os.path.exists(exe_path):
+        try:
+            result = subprocess.run([exe_path], capture_output=True, text=True)
+            session['output'] = result.stdout
+            return redirect(url_for('output'))
+        except Exception as e:
+            session['output'] = f"Błąd uruchamiania programu: {e}"
+            return redirect(url_for('output'))
+    else:
+        session['output'] = "Nie znaleziono pliku EXE."
+        return redirect(url_for('output'))
+    
+@app.route('/result')
+def show_result():
+    # Pobierz wynik z sesji i przekaż go do szablonu
+    output_text = session.get('output', 'Brak danych do wyświetlenia.')
+    return render_template('end.html', output=output_text)
 if __name__ == '__main__':
     app.run(debug=True)
