@@ -9,6 +9,7 @@
 #include "Pole.h"
 #include "Wezel.h"
 #include "Graf.h"
+#include "FordFulkerson.h"
 #include "Drukuj.h"
 #include "Calosc.h"
 using namespace std;
@@ -180,5 +181,8 @@ int uruchomProgram()
 
     cout << "Maksymalny przeplyw piwa do karczm:        " << przeplywIkoszt.first << " sztuk browarow." << endl;
     cout << "Minimalny koszt naprawy drog do przeplywu: " << przeplywIkoszt.second << " sztuk zlota." << endl;
+
+    // cout<<"Maksymalny przeplyw piwa do karczm: "<<fordFulkerson(macierz_sasiedztwa,ile-2,ile-1)<<endl;
+
     return 0;
 }

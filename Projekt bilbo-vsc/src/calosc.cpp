@@ -9,6 +9,7 @@
 #include "Pole.h"
 #include "Wezel.h"
 #include "Graf.h"
+#include "FordFulkerson.h"
 #include "Drukuj.h"
 #include "Calosc.h"
 using namespace std;
@@ -28,7 +29,7 @@ vector<Pole> polaICwiartki(int iloscp) {
         iloscwv.push_back(iloscw);
         cout << "wydajnosc cwiartki" << endl;
         cin >> wydajnosc;
-        Cwiartka c; // Tworzymy now¹ cwiartkê
+        Cwiartka c; // Tworzymy nowï¿½ cwiartkï¿½
         c.ustawWydaj(wydajnosc);
         cw.push_back(c);
         
@@ -72,7 +73,7 @@ vector<Pole> polaICwiartki(int iloscp) {
 
         pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia); 
         pl[i].ustawSredniaXY();
-        cout << "Pole " << i + 1 << " znajduje siê w cwiartkach: ";
+        cout << "Pole " << i + 1 << " znajduje siï¿½ w cwiartkach: ";
         for (int id : przypisaneCwiartki)
             cout << id + 1 << " ";
         cout << "\nWartosc jeczmienia: " << sumaJeczmienia << endl;
@@ -271,7 +272,7 @@ int uruchomProgram()
         macierz_sasiedztwa.resize(ile, vector<int>(ile, 0));
         koszty_napraw.resize(ile, vector<int>(ile, 0));
 
-        //wstawiamy do macierzy wczesniej obliczon¹ wartosc jeczmienia
+        //wstawiamy do macierzy wczesniej obliczonï¿½ wartosc jeczmienia
         for (int i = 0; i < pl.size(); i++)
         {
             macierz_sasiedztwa_zboze[ile_skrzyzowan][i] = pl[i].zwroccalkowita_wartosc_jeczmienia();
@@ -353,5 +354,8 @@ int uruchomProgram()
 
     cout << "Maksymalny przeplyw piwa do karczm:        " << przeplywIkoszt.first << " sztuk browarow." << endl;
     cout << "Minimalny koszt naprawy drog do przeplywu: " << przeplywIkoszt.second << " sztuk zlota." << endl;
+
+    // cout<<"Maksymalny przeplyw piwa do karczm: "<<fordFulkerson(macierz_sasiedztwa,ile-2,ile-1)<<endl;
+    
     return 0;
 }
