@@ -59,7 +59,7 @@ def save_data():
     data = request.get_json()
 
     # Ścieżka docelowa zapisu pliku
-    file_path = r"C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\dane.txt"
+    file_path = os.path.join(os.getcwd(),'Projekt bilbo-vsc', 'src', 'dane.txt')
     
     # Usuń stary plik jeśli istnieje
     if os.path.exists(file_path):
@@ -94,7 +94,7 @@ def save_data():
         for s in data['skrzyzowania_data']:
             f.write(" ".join(map(str, s)) + "\n")
 
-    exe_path = r"C:\Users\Asus\Desktop\Projekt_AiSD2_Browary_Bilba\Projekt bilbo-vs2022\Projekt bilbo\x64\Debug\Projekt bilbo.exe"
+    exe_path = os.path.join(os.getcwd(),'Projekt bilbo-vsc', 'src', 'program.exe')
 
     # Upewnij się, że plik istnieje
     if os.path.exists(exe_path):

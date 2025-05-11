@@ -1,5 +1,5 @@
 ﻿#include<iostream>
-#include "pch.h"
+//#include "pch.h"
 #include "Pole.h"
 #include "Wezel.h"
 #include "Merge_sort.h"

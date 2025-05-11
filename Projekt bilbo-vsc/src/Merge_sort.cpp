@@ -1,4 +1,4 @@
-#include "pch.h"
+//#include "pch.h"
 #include "Merge_sort.h"
 #include <cmath>
 

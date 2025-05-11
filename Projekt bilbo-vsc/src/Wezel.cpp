@@ -1,7 +1,8 @@
 ﻿#include<iostream>
-#include "pch.h"
+//#include "pch.h"
 #include "Wezel.h"
 #include "Merge_sort.h"
+#include <algorithm>
 
 using namespace std;
 

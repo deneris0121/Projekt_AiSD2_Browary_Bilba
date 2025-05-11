@@ -1,9 +1,9 @@
-#include <vector>          // WA¯NE: przed innymi include, bo vector mo¿e byæ w nag³ówku
-#include "pch.h"
+#include <vector>          // WAï¿½NE: przed innymi include, bo vector moï¿½e byï¿½ w nagï¿½ï¿½wku
+//#include "pch.h"
 #include "Cwiartka.h"
-#include "Wezel.h"         // <-- MUSISZ to mieæ, by klasa Wezel by³a znana
-
-using namespace std;       // lub zamiast tego u¿ywaj std::vector
+#include "Wezel.h"         // <-- MUSISZ to mieï¿½, by klasa Wezel byï¿½a znana
+#include <cmath>
+using namespace std;       // lub zamiast tego uï¿½ywaj std::vector
 
 Cwiartka::Cwiartka():wydajnosc(0){}
 
@@ -34,11 +34,11 @@ double Cwiartka::onliczPoleCwiartki()
     return wynik;
 }
 /*algorytm "winding number" 
-Ten algorytm œledzi, jak "owija siê" linia wokó³ punktu.Dzia³a to na zasadzie obliczania liczby nawiniêæ(lub zmian orientacji), które tworzy krawêdŸ wielok¹ta wzglêdem punktu.
+Ten algorytm ï¿½ledzi, jak "owija siï¿½" linia wokï¿½ punktu.Dziaï¿½a to na zasadzie obliczania liczby nawiniï¿½ï¿½(lub zmian orientacji), ktï¿½re tworzy krawï¿½dï¿½ wielokï¿½ta wzglï¿½dem punktu.
 
-Jeœli punkt jest wewn¹trz wielok¹ta, suma nawiniêæ wokó³ punktu wynosi 1 (w sensie liczby pe³nych obrotów wokó³ punktu).
+Jeï¿½li punkt jest wewnï¿½trz wielokï¿½ta, suma nawiniï¿½ï¿½ wokï¿½ punktu wynosi 1 (w sensie liczby peï¿½nych obrotï¿½w wokï¿½ punktu).
 
-Jeœli punkt znajduje siê na zewn¹trz, suma nawiniêæ wynosi 0.
+Jeï¿½li punkt znajduje siï¿½ na zewnï¿½trz, suma nawiniï¿½ï¿½ wynosi 0.
 
 
 */
@@ -48,48 +48,48 @@ bool Cwiartka::czyPunktSieZnajduje(Wezel& p) {
 
         for (int i = 0; i < n; i++) {
             Wezel a = punkty_Cwiartki[i];
-            Wezel b = punkty_Cwiartki[(i + 1) % n];  // KrawêdŸ (a, b)
+            Wezel b = punkty_Cwiartki[(i + 1) % n];  // Krawï¿½dï¿½ (a, b)
 
-            // Sprawdzamy, czy punkt p le¿y na krawêdzi
+            // Sprawdzamy, czy punkt p leï¿½y na krawï¿½dzi
             if (punktNaKrawedzi(a, b, p)) {
-                return true;  // Punkt le¿y na krawêdzi
+                return true;  // Punkt leï¿½y na krawï¿½dzi
             }
 
-            // Jeœli punkt jest w obrêbie krawêdzi, sprawdzamy, w któr¹ stronê siê "zawija"
+            // Jeï¿½li punkt jest w obrï¿½bie krawï¿½dzi, sprawdzamy, w ktï¿½rï¿½ stronï¿½ siï¿½ "zawija"
             if (a.getY() <= p.getY()) {
                 if (b.getY() > p.getY()) {
-                    // Sprawdzamy orientacjê (czy punkt jest po lewej od krawêdzi)
+                    // Sprawdzamy orientacjï¿½ (czy punkt jest po lewej od krawï¿½dzi)
                     if ((Wezel::iloczynWektorowy(a, b, p)) > 0)
-                        windingNumber++;  // Zwiêkszamy liczbê nawiniêæ
+                        windingNumber++;  // Zwiï¿½kszamy liczbï¿½ nawiniï¿½ï¿½
                 }
             }
             else {
                 if (b.getY() <= p.getY()) {
                     if ((Wezel::iloczynWektorowy(a, b, p)) < 0)
-                        windingNumber--;  // Zmniejszamy liczbê nawiniêæ
+                        windingNumber--;  // Zmniejszamy liczbï¿½ nawiniï¿½ï¿½
                 }
             }
         }
 
-        // Jeœli suma nawiniêæ wynosi zero, punkt jest na zewn¹trz
+        // Jeï¿½li suma nawiniï¿½ï¿½ wynosi zero, punkt jest na zewnï¿½trz
         return windingNumber != 0;
     }
 bool Cwiartka::punktNaKrawedzi(Wezel& a, Wezel& b, Wezel& p) {
-    /* Sprawdzamy, czy punkt p le¿y na krawêdzi(a, b)
-     Punkt p le¿y na krawêdzi, jeœli:
-     - jest w obrêbie zakresu krawêdzi
-     - le¿y na tej samej linii (sprawdzamy orientacjê)
+    /* Sprawdzamy, czy punkt p leï¿½y na krawï¿½dzi(a, b)
+     Punkt p leï¿½y na krawï¿½dzi, jeï¿½li:
+     - jest w obrï¿½bie zakresu krawï¿½dzi
+     - leï¿½y na tej samej linii (sprawdzamy orientacjï¿½)
      */
 
     double crossProduct = (p.getY() - a.getY()) * (b.getX() - a.getX()) - (p.getX() - a.getX()) * (b.getY() - a.getY());
-    if (abs(crossProduct) > 1e-9) {  // Zbyt ma³a tolerancja dla dok³adnoœci zmiennoprzecinkowej
-        return false;  // Punkt nie le¿y na tej samej linii
+    if (abs(crossProduct) > 1e-9) {  // Zbyt maï¿½a tolerancja dla dokï¿½adnoï¿½ci zmiennoprzecinkowej
+        return false;  // Punkt nie leï¿½y na tej samej linii
     }
 
-    // Sprawdzamy, czy punkt p jest w obrêbie odcinka
+    // Sprawdzamy, czy punkt p jest w obrï¿½bie odcinka
     if (min(a.getX(), b.getX()) <= p.getX() && p.getX() <= max(a.getX(), b.getX()) &&
         min(a.getY(), b.getY()) <= p.getY() && p.getY() <= max(a.getY(), b.getY())) {
-        return true;  // Punkt le¿y na krawêdzi
+        return true;  // Punkt leï¿½y na krawï¿½dzi
     }
 
     return false;
