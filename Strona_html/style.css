@@ -16,6 +16,12 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.saruman {
+    background-color: rgb(18, 65, 50);
+    background-image: url(Saruman2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 a {
     text-decoration: none;

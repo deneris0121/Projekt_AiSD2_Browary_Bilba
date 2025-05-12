@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browary Bilba</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css-reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Almendra+SC&family=Quintessential&display=swap" rel="stylesheet">
+</head>
+<body class="saruman"> <!--tło z bilbo-->
+    <nav>
+        <div class="header">
+            <h1>Shire zostało zniszczone!</h1>
+        </div>
+        <div class="Archive-Button">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
+            </a>
+        </div>
+    </nav>
+    <main>
+        
+    </main>
+</body>
+</html>

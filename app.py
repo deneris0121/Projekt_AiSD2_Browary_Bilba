@@ -54,6 +54,11 @@ def output():
 def archive():
     return render_template('archive.html')
 
+
+@app.route('/error')
+def error():
+    return render_template('error.html')
+
 @app.route('/save_data', methods=['POST'])
 def save_data():
     data = request.get_json()
