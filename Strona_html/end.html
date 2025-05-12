@@ -29,7 +29,9 @@
                 <pre>{{ output }}</pre>  <!-- Wyświetlenie wyniku w bloku tekstowym -->
             </div>
             <div class="retry-button">
-                <a href="/">Powrót do strony głównej</a>
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
+                </a>
             </div>
         </div>
     </main>
