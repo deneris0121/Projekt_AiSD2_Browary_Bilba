@@ -59,7 +59,7 @@ def save_data():
     data = request.get_json()
 
     # Ścieżka docelowa zapisu pliku
-    file_path = os.path.join(os.getcwd(),'Projekt bilbo-vsc', 'src', 'dane.txt')
+    file_path = os.path.join(os.getcwd(),'dane.txt')
     
     # Usuń stary plik jeśli istnieje
     if os.path.exists(file_path):
