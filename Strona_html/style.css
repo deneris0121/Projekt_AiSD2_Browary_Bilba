@@ -71,6 +71,23 @@ main {
     position: absolute;
 }
 
+.main2 {
+    min-height: 70vh;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10vh 10vh;
+}
+
+.menu-mold {
+    margin-left: 100px;
+    background-image: url(board-green.png);
+    height: 500px;
+    width: 700px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+}
+
 .deska {
     margin: 63px 73px 6px 73px;
     border: 5px solid;
@@ -96,7 +113,33 @@ main {
     justify-content: space-between;
     align-items: center;
 }
-  
+
+.deska2 {
+    margin: 80px 73px 12px 73px;
+    border: 5px solid;
+    border-color: #233016;
+    background-color: #5c782f;
+    justify-items: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.output-mold {
+    margin: 12px 73px 12px 73px;
+    border: 5px solid;
+    height: 300px;
+    border-color: #424d21;
+    background-color: #849b38;
+    justify-items: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 
 h2 {
     font-family: "Almendra SC", serif;
@@ -116,6 +159,7 @@ h2 {
     font-style: normal;
     font-size: 1.5rem;
 }
+
 
 .result {
     padding: 10px;
