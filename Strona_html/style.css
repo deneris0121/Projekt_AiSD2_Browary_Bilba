@@ -31,21 +31,21 @@ h1 {
 nav {
     min-height: 100px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.Exit-Button {
-    padding: 30px;
-}
 
 .header {
-    width: 90%;
     text-align: center;
+    position: absolute;
+    vertical-align: middle;
 }
 
 .Archive-Button {
     padding: 30px;
+    position: absolute;
+    right: 0px;
 }
 
 main {

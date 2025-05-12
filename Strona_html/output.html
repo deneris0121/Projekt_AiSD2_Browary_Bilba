@@ -12,14 +12,13 @@
 </head>
 <body class="end">
     <nav>
-        <div class="Exit-Button">
-            <img src="{{ url_for('static', filename='Button-Ezit.svg') }}" alt="exit button" href="end.html">
-        </div>
         <div class="header">
             <h1>Witaj w Shire!</h1>
         </div>
         <div class="Archive-Button">
-            <img src="{{ url_for('static', filename='Button-Archive.svg') }}" alt="archive button" href="archive.html">
+            <a href="{{ url_for('archive') }}">
+                <img src="{{ url_for('static', filename='Button-Archive.svg') }}" alt="archive button" href="archive.html">
+            </a>
         </div>
     </nav>
     <main>
@@ -31,7 +30,9 @@
             </div>
             <div class="box"></div>
             <div class="retry-button">
-                <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
+                <a href="{{ url_for('start') }}">
+                    <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
+                </a>
             </div>
             
         </div>
