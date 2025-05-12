@@ -59,13 +59,16 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
     
     for (int i = 0; i < pl.size(); i++) {
         vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
+        for(int i=0;i<przypisaneCwiartki.size();i++){
+            cout<<"pole "<< i+1 <<"lezy w :"<< przypisaneCwiartki[i]<<" Cwiartce"<<endl;
+        }
         double sumaJeczmienia = 0;
 
         for (int id : przypisaneCwiartki) {
             double wartosc = pl[i].obliczCalkowitaWartoscJeczmienia(cw[id]);
             sumaJeczmienia += wartosc;
         }
-
+        cout<<"calkowita wartosc jeczmienia dla pola "<< i+1 << " "<< sumaJeczmienia <<endl;
         pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia);
         pl[i].ustawSredniaXY();
     }
@@ -179,8 +182,8 @@ int uruchomProgram()
 
     pair<int, int> przeplywIkoszt = minCostMaxFlow(macierz_sasiedztwa, koszty_napraw, ile - 2, ile - 1);
 
-    cout << "Maksymalny przeplyw piwa do karczm:        " << przeplywIkoszt.first << " sztuk browarow." << endl;
-    cout << "Minimalny koszt naprawy drog do przeplywu: " << przeplywIkoszt.second << " sztuk zlota." << endl;
+    cout << "Maksymalny przeplyw piwa do karczm:        \n" << przeplywIkoszt.first << " piwa." << endl;
+    cout << "Minimalny koszt naprawy drog do przeplywu: \n" << przeplywIkoszt.second << " sztuk zlota." << endl;
 
     // cout<<"Maksymalny przeplyw piwa do karczm: "<<fordFulkerson(macierz_sasiedztwa,ile-2,ile-1)<<endl;
     

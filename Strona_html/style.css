@@ -127,6 +127,7 @@ main {
     align-items: center;
 }
 
+
 .output-mold {
     margin: 12px 73px 12px 73px;
     border: 5px solid;
@@ -140,7 +141,27 @@ main {
     justify-content: space-between;
     align-items: center;
 }
-
+.output-moldnot {
+    margin: 12px 73px 12px 73px;
+    border: 5px solid;
+    height: 300px;
+    background-color: #EED5A2;
+    border-color: #7F5934;
+    justify-items: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+     overflow: auto;
+}
+.output-moldnot pre {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap; /* Pozwala na zawijanie tekstu */
+    word-wrap: break-word; /* Zawija długie słowa */
+}
 h2 {
     font-family: "Almendra SC", serif;
     font-weight: 600;

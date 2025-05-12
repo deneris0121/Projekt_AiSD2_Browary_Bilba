@@ -58,14 +58,18 @@ def archive():
 @app.route('/error')
 def error():
     return render_template('error.html')
+@app.route('/zPliku')
+def zPliku():
+    return render_template('zPliku.html')
 
 @app.route('/save_data', methods=['POST'])
 def save_data():
     data = request.get_json()
-
-    # Ścieżka docelowa zapisu pliku
-    file_path = os.path.join(os.getcwd(),'dane.txt')
     
+    exe_dir = os.path.join(os.path.dirname(__file__), 'Projekt bilbo-vsc', 'src')
+    exe_path = os.path.join(exe_dir, 'program.exe')
+    # Ścieżka docelowa zapisu pliku
+    file_path = os.path.join(exe_dir, 'dane.txt')
     # Usuń stary plik jeśli istnieje
     if os.path.exists(file_path):
         os.remove(file_path)
@@ -99,25 +103,58 @@ def save_data():
         for s in data['skrzyzowania_data']:
             f.write(" ".join(map(str, s)) + "\n")
 
-    exe_path = os.path.join(os.getcwd(),'Projekt bilbo-vsc', 'src', 'program.exe')
-
+    
     # Upewnij się, że plik istnieje
     if os.path.exists(exe_path):
         try:
-            result = subprocess.run([exe_path], capture_output=True, text=True)
+            result = subprocess.run([exe_path], capture_output=True, text=True, cwd=exe_dir)
             session['output'] = result.stdout
-            return redirect(url_for('output'))
+            return redirect(url_for('show_result'))
         except Exception as e:
             session['output'] = f"Błąd uruchamiania programu: {e}"
             return redirect(url_for('output'))
     else:
         session['output'] = "Nie znaleziono pliku EXE."
-        return redirect(url_for('output'))
+        return redirect(url_for('show_result'))
     
 @app.route('/result')
 def show_result():
     # Pobierz wynik z sesji i przekaż go do szablonu
     output_text = session.get('output', 'Brak danych do wyświetlenia.')
     return render_template('end.html', output=output_text)
+
+@app.route('/upload_txt', methods=['POST'])
+def upload_txt():
+    filename = request.form.get('nazwaPliku')
+    if not filename:
+        session['output'] = "Nie podano nazwy pliku."
+        return redirect(url_for('show_result'))
+
+    try:
+        # Ścieżki
+        input_path = os.path.join(os.path.dirname(__file__), filename)
+        exe_dir = os.path.join(os.path.dirname(__file__), 'Projekt bilbo-vsc', 'src')
+        output_path = os.path.join(exe_dir, 'dane.txt')
+        exe_path = os.path.join(exe_dir, 'program.exe')
+
+        # Przepisz dane.txt do folderu z EXE
+        with open(input_path, 'r', encoding='utf-8') as infile:
+            content = infile.read()
+        with open(output_path, 'w', encoding='utf-8') as outfile:
+            outfile.write(content)
+
+        # Upewnij się, że .exe istnieje
+        if not os.path.exists(exe_path):
+            session['output'] = "Nie znaleziono programu .exe."
+            return redirect(url_for('show_result'))
+
+        # Uruchom program z ustawionym katalogiem roboczym
+        result = subprocess.run([exe_path], capture_output=True, text=True, cwd=exe_dir)
+        session['output'] = result.stdout if result.stdout else "Program nie zwrócił żadnego wyniku."
+
+    except Exception as e:
+        session['output'] = f"Błąd: {e}"
+
+    return redirect(url_for('show_result'))
 if __name__ == '__main__':
     app.run(debug=True)
