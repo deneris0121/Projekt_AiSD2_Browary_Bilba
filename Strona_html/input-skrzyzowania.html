@@ -60,15 +60,20 @@
                     localStorage.setItem(`jeczmiens${index}`, jeczmiens);
                     localStorage.setItem(`piwos${index}`,piwos);
                     localStorage.setItem(`naprawas${index}`, naprawas);
-               if (current < n - 1) 
-                {
-                 current++;
-                 renderForm(current);
-                } 
-                else 
-                {
-                window.location.href = "{{ url_for('output') }}";
-                }
+                    if(naprawas<0){
+                        localStorage.setItem("errorMessage", "DROGA JEST NIE DO NAPRAWIENIA");
+                        window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+                    }else{
+                        if (current < n - 1) 
+                        {
+                            current++;
+                            renderForm(current);
+                        } 
+                        else 
+                        {
+                            window.location.href = "{{ url_for('output') }}";
+                        }
+                    }
                 });
             }
 

@@ -55,15 +55,20 @@
                localStorage.setItem(`xbrowary${index}`, xbrowar);
                localStorage.setItem(`ybrowary${index}`, ybrowar);
                localStorage.setItem(`piwo${index}`, piwo);
-          if (current < n - 1) 
-           {
-            current++;
-            renderForm(current);
-           } 
-           else 
-           {
-           window.location.href = "{{ url_for('input_karczmy') }}";
-           }
+               if(piwo<1){
+                    localStorage.setItem("errorMessage", "SARUMAN WSZYSTKO WYPIŁ");
+                    window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+               }else{
+                    if (current < n - 1) 
+                    {
+                        current++;
+                        renderForm(current);
+                    } 
+                    else 
+                    {
+                        window.location.href = "{{ url_for('input_karczmy') }}";
+                    }
+                }
            });
        }
 

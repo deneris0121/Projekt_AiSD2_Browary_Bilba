@@ -59,6 +59,10 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
     
     for (int i = 0; i < pl.size(); i++) {
         vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
+        if(przypisaneCwiartki.size()>1){
+            cout<<"BLAD2 ";
+            return {};
+        }
         for(int i=0;i<przypisaneCwiartki.size();i++){
             cout<<"pole "<< i+1 <<"lezy w :"<< przypisaneCwiartki[i]<<" Cwiartce"<<endl;
         }
@@ -67,6 +71,10 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
         for (int id : przypisaneCwiartki) {
             double wartosc = pl[i].obliczCalkowitaWartoscJeczmienia(cw[id]);
             sumaJeczmienia += wartosc;
+        }
+        if(sumaJeczmienia < 1){
+            cout<<"BLAD3 ";
+            return {};
         }
         cout<<"calkowita wartosc jeczmienia dla pola "<< i+1 << " "<< sumaJeczmienia <<endl;
         pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia);
@@ -181,7 +189,10 @@ int uruchomProgram()
     //drukujMacierz(macierz_sasiedztwa, "Macierz sasiedztwa (wszystko razem):");
 
     pair<int, int> przeplywIkoszt = minCostMaxFlow(macierz_sasiedztwa, koszty_napraw, ile - 2, ile - 1);
-
+    if(przeplywIkoszt.first == 0){
+        cout<<"BLAD1 ";
+        return 1;
+    }
     cout << "Maksymalny przeplyw piwa do karczm:        \n" << przeplywIkoszt.first << " piwa." << endl;
     cout << "Minimalny koszt naprawy drog do przeplywu: \n" << przeplywIkoszt.second << " sztuk zlota." << endl;
 

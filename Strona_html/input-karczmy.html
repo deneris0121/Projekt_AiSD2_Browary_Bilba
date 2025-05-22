@@ -54,15 +54,20 @@
                     localStorage.setItem(`xkarczmy${index}`, xkarczmy);
                     localStorage.setItem(`ykarczmy${index}`, ykarczmy);
                     localStorage.setItem(`jeczmienk${index}`, jeczmienk);
-               if (current < n - 1) 
-                {
-                 current++;
-                 renderForm(current);
-                } 
-                else 
-                {
-                window.location.href = "{{ url_for('input_skrzyzowania') }}";
-                }
+                    if(jeczmienk<1){
+                        localStorage.setItem("errorMessage", "SARUMAN SPALIŁ CAŁY JECZMIEN");
+                        window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+                    } else{
+                        if (current < n - 1) 
+                        {
+                            current++;
+                            renderForm(current);
+                        } 
+                        else 
+                        {
+                            window.location.href = "{{ url_for('input_skrzyzowania') }}";
+                        }
+                    }
                 });
             }
 

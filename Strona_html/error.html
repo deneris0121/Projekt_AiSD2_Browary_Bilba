@@ -28,10 +28,19 @@
                 <h2 class="data">Error</h2>
                 <div class="screw"></div>
             </div>
-            <div class="output-mold">
-                <!-- tu wkleic tresc errora-->
+            <div class="output-mold" id="error-output">
             </div>
         </div>
     </div>
+    <script>
+        // Pobierz treść błędu z localStorage
+        const errorMessage = localStorage.getItem("errorMessage") || "{{ error_message }}";
+
+        // Wyświetl go wewnątrz div.output-mold
+        document.getElementById("error-output").textContent = errorMessage;
+
+        // (Opcjonalnie) Wyczyść localStorage po wyświetleniu
+        localStorage.removeItem("errorMessage");
+    </script>
 </body>
 </html>

@@ -33,11 +33,6 @@
              for (let i = 0; i < n; i++) {
                 let points = localStorage.getItem(`xwierzch${i}`);
                 points = parseInt(points);
-                if (isNaN(points) || points <= 0) {
-                    alert(`Błąd: Niepoprawna liczba punktów dla ćwiartki ${i + 1}. Wartość musi być liczbą większą niż 0.`);
-                    window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
-                    break;
-                }
                 xwierzch[i] = points;
             }
 

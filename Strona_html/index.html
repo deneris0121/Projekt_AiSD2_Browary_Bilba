@@ -58,8 +58,14 @@
             localStorage.setItem("skrzyzowania", skrzyzowania);
             localStorage.setItem("krawedzie", krawedzie);
 
-            // Przekierowanie na stronę input-pole.html
-            window.location.href = "{{ url_for('input_cwiartki') }}";
+            // Przekierowanie na stronę input-cwiartki.html
+            if((pola<1) || (browary<1) || (karczmy<1) || (skrzyzowania<(pola+browary+karczmy)) || (krawedzie<1)){
+                localStorage.setItem("errorMessage", "ZBYT MAŁA ILOŚĆ DANYCH");
+                window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+            }else{
+                window.location.href = "{{ url_for('input_cwiartki') }}";
+            }
+            
         });
     </script>
 </body>

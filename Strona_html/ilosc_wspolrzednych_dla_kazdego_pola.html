@@ -53,13 +53,17 @@
                     localStorage.setItem(`xpole${index}`, xpole);
 
 
-        
-                    if (current < n - 1) {
-                        current++;
-                        renderForm(current);
-                    } else {
-                        // Przejście do kolejnej strony (np. input-cwiartki-wspol.html)
-                         window.location.href = "{{ url_for('input_pole') }}";
+                    if(xpole<3){
+                        localStorage.setItem("errorMessage", "POLA SA DWUWYMIAROWE");
+                        window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+                    }else{
+                        if (current < n - 1) {
+                            current++;
+                            renderForm(current);
+                        } else {
+                            // Przejście do kolejnej strony (np. input-cwiartki-wspol.html)
+                            window.location.href = "{{ url_for('input_pole') }}";
+                        }
                     }
                 });
             }

@@ -57,7 +57,8 @@ def archive():
 
 @app.route('/error')
 def error():
-    return render_template('error.html')
+    error_message = session.get('output', 'Wystąpił nieznany błąd.')
+    return render_template('error.html', error_message=error_message)
 @app.route('/zPliku')
 def zPliku():
     return render_template('zPliku.html')
@@ -115,7 +116,7 @@ def save_data():
             return redirect(url_for('output'))
     else:
         session['output'] = "Nie znaleziono pliku EXE."
-        return redirect(url_for('show_result'))
+        return redirect(url_for('error'))
     
 @app.route('/result')
 def show_result():
@@ -128,7 +129,7 @@ def upload_txt():
     filename = request.form.get('nazwaPliku')
     if not filename:
         session['output'] = "Nie podano nazwy pliku."
-        return redirect(url_for('show_result'))
+        return redirect(url_for('error'))
 
     try:
         # Ścieżki
@@ -146,12 +147,28 @@ def upload_txt():
         # Upewnij się, że .exe istnieje
         if not os.path.exists(exe_path):
             session['output'] = "Nie znaleziono programu .exe."
-            return redirect(url_for('show_result'))
+            return redirect(url_for('error'))
 
         # Uruchom program z ustawionym katalogiem roboczym
         result = subprocess.run([exe_path], capture_output=True, text=True, cwd=exe_dir)
-        session['output'] = result.stdout if result.stdout else "Program nie zwrócił żadnego wyniku."
+        #session['output'] = result.stdout if result.stdout else "Program nie zwrócił żadnego wyniku."
+        output = result.stdout.strip()
+        error_map = {
+            "BLAD1": "Błąd: SARUMAN ZATAKOWAŁ WIOSKE.",
+            "BLAD2": "Błąd: SARUMAN ZNISZCZYŁ SHIRE.",
+            "BLAD3": "Błąd: SARUMAN SPALIŁ PLONY."
+        }
 
+       
+        for code, message in error_map.items():
+            if code in output:
+                session['output'] = message
+                return redirect(url_for('error'))
+
+        # Jeśli nie znaleziono błędu – traktuj jako poprawne wykonanie
+        session['output'] = output if output else "Program nie zwrócił żadnego wyniku."
+        return redirect(url_for('show_result'))
+        
     except Exception as e:
         session['output'] = f"Błąd: {e}"
 

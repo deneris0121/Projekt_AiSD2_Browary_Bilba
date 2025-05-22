@@ -24,46 +24,50 @@
     <main id="menuContainer">
         <script>
            const n = 4; // Liczba ćwiartek (podstron)
-let current = 0;
+            let current = 0;
 
-const menu = document.getElementById("menuContainer");
+            const menu = document.getElementById("menuContainer");
 
-function renderForm(index) {
-    menu.innerHTML = `
-        <div class="menu">
-            <div class="deska">
-                <div class="screw"></div>
-                <h2 class="data1">Podaj dane Ćwiartki ${index + 1}:</h2>
-                <div class="screw"></div>
-            </div>
-            <div class="wrapper">
-                <input type="text" id="xwierzch${index}" placeholder="Podaj ilość współrzędnych" class="text-input">
-                <input type="text" id="jeczmien${index}" placeholder="Ilość jęczmienia" class="text-input">
-                <button class="accept-button">Dalej</button>
-            </div>
-        </div>
-    `;
+            function renderForm(index) {
+                menu.innerHTML = `
+                    <div class="menu">
+                        <div class="deska">
+                            <div class="screw"></div>
+                                <h2 class="data1">Podaj dane Ćwiartki ${index + 1}:</h2>
+                                <div class="screw"></div>
+                            </div>
+                            <div class="wrapper">
+                                <input type="text" id="xwierzch${index}" placeholder="Podaj ilość współrzędnych" class="text-input">
+                                <input type="text" id="jeczmien${index}" placeholder="Ilość jęczmienia" class="text-input">
+                                <button class="accept-button">Dalej</button>
+                            </div>
+                        </div>
+                    `;
 
-    menuContainer.querySelector(".accept-button").addEventListener("click", () => {
-        const xwierzch = document.getElementById(`xwierzch${index}`).value;
-        const jeczmien = document.getElementById(`jeczmien${index}`).value;
+                menuContainer.querySelector(".accept-button").addEventListener("click", () => {
+                const xwierzch = document.getElementById(`xwierzch${index}`).value;
+                const jeczmien = document.getElementById(`jeczmien${index}`).value;
 
-        // Przechowywanie danych w localStorage
-        localStorage.setItem(`xwierzch${index}`, xwierzch);
-localStorage.setItem(`jeczmien${index}`, jeczmien);
+                // Przechowywanie danych w localStorage
+                localStorage.setItem(`xwierzch${index}`, xwierzch);
+                localStorage.setItem(`jeczmien${index}`, jeczmien);
 
-// Dodanie logów do konsoli
-console.log(`xwierzch${index}: ${xwierzch}`);
-console.log(`jeczmien${index}: ${jeczmien}`);
-
-        if (current < n - 1) {
-            current++;
-            renderForm(current);
-        } else {
-            // Przejście do kolejnej strony (np. input-cwiartki-wspol.html)
-            window.location.href = "{{ url_for('input_cwiartki_wspol') }}";
-        }
-    });
+                // Dodanie logów do konsoli
+                console.log(`xwierzch${index}: ${xwierzch}`);
+                console.log(`jeczmien${index}: ${jeczmien}`);
+                if((xwierzch<3) || (jeczmien<1)){
+                    localStorage.setItem("errorMessage", "NIC NIE UROSŁO NA POLACH A CWIARTKI SA DWUWYMIAROWE");
+                    window.location.href =  "{{ url_for('error') }}"; // Możesz zmienić na odpowiednią stronę
+                } else{
+                    if (current < n - 1) {
+                        current++;
+                        renderForm(current);
+                    } else {
+                        // Przejście do kolejnej strony (np. input-cwiartki-wspol.html)
+                        window.location.href = "{{ url_for('input_cwiartki_wspol') }}";
+                    }
+                }
+        });
 }
 
 // Uruchomienie renderowania formularzy na podstawie liczby pól
