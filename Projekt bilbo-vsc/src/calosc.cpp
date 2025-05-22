@@ -64,7 +64,7 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
             return {};
         }
         for(int i=0;i<przypisaneCwiartki.size();i++){
-            cout<<"pole "<< i+1 <<"lezy w :"<< przypisaneCwiartki[i]<<" Cwiartce"<<endl;
+            cout<<"pole "<< i+1 <<"lezy w :"<< przypisaneCwiartki[i]+1<<" Cwiartce"<<endl;
         }
         double sumaJeczmienia = 0;
 

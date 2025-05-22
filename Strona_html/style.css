@@ -137,10 +137,18 @@ main {
     justify-items: center;
     border-radius: 5px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
 }
+
+.mold-text {
+    margin: 20px;
+    font-family: "Almendra SC", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+
 .output-moldnot {
     margin: 12px 73px 12px 73px;
     border: 5px solid;
