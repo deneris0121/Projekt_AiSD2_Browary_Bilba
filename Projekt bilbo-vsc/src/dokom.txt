@@ -1,1 +1,1 @@
-g++ main.cpp Calosc.cpp Browar.cpp Cwiartka.cpp FordFulkerson.cpp Graf.cpp Karczma.cpp Krawedz.cpp Merge_sort.cpp Pole.cpp Wezel.cpp -o program.exe
+g++ main.cpp Calosc.cpp Browar.cpp Cwiartka.cpp FordFulkerson.cpp Graf.cpp Karczma.cpp Krawedz.cpp Merge_sort.cpp Pole.cpp Wezel.cpp Drukuj.cpp Zapis.cpp -o program.exe
