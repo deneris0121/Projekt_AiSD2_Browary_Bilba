@@ -129,6 +129,24 @@ TEST_CASE("FordFulkerson: Graf bardziej zlozony, bez uzywania krawedzi odwrotnyc
     CHECK(fordFulkerson(graf, source, target) == 15);
 }
 
+TEST_CASE("FordFulkerson: Polaczenia kazdego wierzcholka z kazdym") {
+    vector<vector<int>> graf = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+    int source = 7;
+    int target = 8;
+
+    CHECK(fordFulkerson(graf, source, target) == 8);
+}
+
 TEST_CASE("FordFulkerson: Waskie gardlo") {
     vector<vector<int>> graf = {
         {0, 0, 0, 3, 2, 0, 0, 0, 0},

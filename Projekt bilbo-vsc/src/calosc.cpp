@@ -2,6 +2,7 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
+#include <string>
 #include "Browar.h"
 #include "Karczma.h"
 #include "Krawedz.h"
@@ -166,7 +167,7 @@ int uruchomProgram()
         macierz_sasiedztwa_zboze[x_][y_] = przepustowosc_zboze_;
         macierz_sasiedztwa_piwo[x_][y_] = przepustowosc_piwo_;
         koszty_napraw[x_][y_] = naprawa_;  //przydzielamy koszt naprawy dla kazdej krawedzi
-        koszty_napraw[y_][x_] = -naprawa_; //krawedzie odwrotne maja koszt naprawy odwrotny
+        koszty_napraw[y_][x_] = -naprawa_; //krawedzie odwrotne maja koszt naprawy odwrotny, aby w razie potrzeby cofnac koszt
 
         if (przepustowosc_piwo_ == 0)
         {

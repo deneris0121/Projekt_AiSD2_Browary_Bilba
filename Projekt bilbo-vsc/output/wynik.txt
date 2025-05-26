@@ -23,4 +23,11 @@ pole 1 lezy w :1 Cwiartce
 calkowita wartosc jeczmienia dla pola 1 3.333333
 Maksymalny przeplyw piwa do karczm: 3 piwa.
 Minimalny koszt naprawy drog do przeplywu: 96 sztuk zlota.
-BLAD2
+BLAD2pole 1 lezy w :1 Cwiartce
+calkowita wartosc jeczmienia dla pola 1 3.333333
+Maksymalny przeplyw piwa do karczm: 3 piwa.
+Minimalny koszt naprawy drog do przeplywu: 96 sztuk zlota.
+pole 1 lezy w :1 Cwiartce
+calkowita wartosc jeczmienia dla pola 1 3.333333
+Maksymalny przeplyw piwa do karczm: 3 piwa.
+Minimalny koszt naprawy drog do przeplywu: 96 sztuk zlota.
