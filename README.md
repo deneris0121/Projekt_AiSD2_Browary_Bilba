@@ -4,8 +4,10 @@ Wymagania:
     Python 3.8+
     Flask (pip install flask)
     Kompilator C++ (np. g++)
-Przed uruchomieniem aplikacji webowej, należy skompilować program główny napisany w C++. W katalogu głównym projektu wykonaj:
+Przed uruchomieniem aplikacji webowej, należy skompilować program główny oraz program wyszukiwarka napisane w C++. W katalogu "Projekt bilbo-vsc/src" projektu wykonaj:
     g++ main.cpp Calosc.cpp Browar.cpp Cwiartka.cpp FordFulkerson.cpp Graf.cpp Karczma.cpp Krawedz.cpp Merge_sort.cpp Pole.cpp Wezel.cpp Drukuj.cpp Zapis.cpp -o program.exe
+W katalogu "Wyszukiwarka" projektu wykonaj:
+    g++ main.cpp BoyerMoore.cpp -o program.exe
 uruchom aplikacje webową:
     app.py
 Po uruchomieniu w przeglądarce wejdź na adres:
@@ -16,6 +18,7 @@ Struktura projektu:
 ├── projekt bilbo-vsc/              # Pliki źródłowe C++
 ├── raporty testow/                 # Raporty testów jednostkowych
 ├── strona_html/                    # strony html i style
+├── Wyszukiwarka/                   # Pliki żródłowe C++ 
 ├── app.py                          # Flask 
 ├── blad/dane2/elo .txt             # dane wejsciowe z pliku
 ├── dokumentacja                    # dokumentacja projektu

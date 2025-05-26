@@ -62,7 +62,7 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
     
     for (int i = 0; i < pl.size(); i++) {
         vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
-        if(przypisaneCwiartki.size()>1){
+        if(przypisaneCwiartki.size() != 1){
             cout<<"BLAD2 ";
             zapisz.dopisz("BLAD2");
             return {};
