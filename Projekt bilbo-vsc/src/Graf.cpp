@@ -70,7 +70,7 @@ pair<int, int> minCostMaxFlow(vector<vector<int>>& graf, vector<vector<int>>& ko
 	vector<vector<int>> grafkopia = graf; // Kopia macierzy sasiedztwa
 	
 	vector<int> rodzic(rozmiar);         // Tablica do przechowywania zakodowanych sciezek
-	vector<int> koszty_dojscia(rozmiar); // Koszty dojscia reprezentuja "najnowsze" koszty sumarycznie, aby dojsc do danego wierzcholka
+	vector<int> koszty_dojscia;          // Koszty dojscia reprezentuja "najnowsze" koszty sumarycznie, aby dojsc do danego wierzcholka
 	
 	/* Potencjaly "zapisuja" poprzednie koszty dojscia,
 	*  tworzac zaktualizowane, najnowsze koszty dojscia
