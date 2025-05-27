@@ -17,7 +17,12 @@ TEST_CASE("BFS: Minimalny przeplyw, jedna sciezka") {
     int source = 3;
     int target = 4;
 
-    CHECK(bfs(graf, source, target, rodzic) == TRUE);
+    CHECK(bfs(graf, source, target, rodzic) == true);
+    CHECK(rodzic[target] == 2);
+    CHECK(rodzic[2] == 1);
+    CHECK(rodzic[1] == 0);
+    CHECK(rodzic[0] == source);
+    CHECK(rodzic[source] == -1);
 }
 
 TEST_CASE("BFS: Brak polaczenia z browarem") {
@@ -36,7 +41,12 @@ TEST_CASE("BFS: Brak polaczenia z browarem") {
     int source = 7;
     int target = 8;
 
-    CHECK(bfs(graf, source, target, rodzic) == FALSE);
+    CHECK(bfs(graf, source, target, rodzic) == false);
+    CHECK(rodzic[target] == NULL);
+    CHECK(rodzic[3] == NULL);
+    CHECK(rodzic[2] == 1);
+    CHECK(rodzic[1] == source);
+    CHECK(rodzic[0] == source);
 }
 
 TEST_CASE("BFS: Brak polaczenia karczmy z target") {
@@ -55,7 +65,14 @@ TEST_CASE("BFS: Brak polaczenia karczmy z target") {
     int source = 7;
     int target = 8;
 
-    CHECK(bfs(graf, source, target, rodzic) == FALSE);
+    CHECK(bfs(graf, source, target, rodzic) == false);
+    CHECK(rodzic[target] == NULL);
+    CHECK(rodzic[6] == 4);
+    CHECK(rodzic[4] == 2);
+    CHECK(rodzic[2] == 1);
+
+    CHECK(rodzic[5] == 3);
+    CHECK(rodzic[3] == 0);
 }
 
 TEST_CASE("BFS: Graf zawierajacy cykl + rozne przepustowosci") {
@@ -75,10 +92,17 @@ TEST_CASE("BFS: Graf zawierajacy cykl + rozne przepustowosci") {
     int source = 8;
     int target = 9;
 
-    CHECK(bfs(graf, source, target, rodzic) == TRUE);
+    CHECK(bfs(graf, source, target, rodzic) == true);
+    CHECK(rodzic[target] == 6);
+    CHECK(rodzic[7] == 5);
+    CHECK(rodzic[6] == 5);
+    CHECK(rodzic[5] == 4);
+    CHECK(rodzic[4] == 2);
+    CHECK(rodzic[3] == 1);
+    CHECK(rodzic[2] == 0);
 }
 
-TEST_CASE("BFS: Graf z krawedziami odwrotnymi") {
+TEST_CASE("BFS: Graf z krawedzia odwrotna") {
     vector<vector<int>> graf = {
         {0, 0, 3, 1, 0, 0, 0, 0},
         {0, 0, 0, 3, 0, 0, 0, 0},
@@ -93,7 +117,41 @@ TEST_CASE("BFS: Graf z krawedziami odwrotnymi") {
     int source = 6;
     int target = 7;
 
-    CHECK(bfs(graf, source, target, rodzic) == TRUE);
+    CHECK(bfs(graf, source, target, rodzic) == true);
+    CHECK(rodzic[target] == 4);
+    CHECK(rodzic[5] == NULL);
+    CHECK(rodzic[4] == 2);
+    CHECK(rodzic[3] == 0);
+    CHECK(rodzic[2] == 0);
+    CHECK(rodzic[0] == source);
+}
+
+TEST_CASE("BFS: Wszystkie mozliwe polaczenia w grafie") {
+    vector<vector<int>> graf = {
+        {0, 1, 1, 1, 1, 0, 0, 1, 0},
+        {1, 0, 1, 1, 1, 0, 0, 1, 0},
+        {1, 1, 0, 1, 1, 1, 1, 0, 0},
+        {1, 1, 1, 0, 1, 1, 1, 0, 0},
+        {1, 1, 1, 1, 0, 1, 1, 0, 0},
+        {0, 0, 1, 1, 1, 0, 1, 0, 1},
+        {0, 0, 1, 1, 1, 1, 0, 0, 1},
+        {1, 1, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 1, 0, 0}
+    };
+    vector<int> rodzic(graf.size());
+    int source = 7;
+    int target = 8;
+
+    CHECK(bfs(graf, source, target, rodzic) == true);
+    CHECK(rodzic[target] == 5);
+    CHECK(rodzic[6] == 2);
+    CHECK(rodzic[5] == 2);
+    CHECK(rodzic[4] == 0);
+    CHECK(rodzic[3] == 0);
+    CHECK(rodzic[2] == 0);
+    CHECK(rodzic[1] == source);
+    CHECK(rodzic[0] == source);
+    CHECK(rodzic[source] == -1);
 }
 
 // Testy Forda-Fulkersona
@@ -112,7 +170,7 @@ TEST_CASE("FordFulkerson: Przeplyw 1, jedna sciezka") {
     CHECK(fordFulkerson(graf, source, target) == 1);
 }
 
-TEST_CASE("FordFulkerson: Graf bardziej zlozony, bez uzywania krawedzi odwrotnych") {
+TEST_CASE("FordFulkerson: Graf bardziej zlozony") {
     vector<vector<int>> graf = {
         {0, 2, 8, 8, 0, 0, 0, 0},
         {0, 0, 0, 9, 0, 0, 0, 0},
@@ -129,22 +187,22 @@ TEST_CASE("FordFulkerson: Graf bardziej zlozony, bez uzywania krawedzi odwrotnyc
     CHECK(fordFulkerson(graf, source, target) == 15);
 }
 
-TEST_CASE("FordFulkerson: Polaczenia kazdego wierzcholka z kazdym") {
+TEST_CASE("FordFulkerson: Wszystkie mozliwe polaczenia w grafie") {
     vector<vector<int>> graf = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1}
+        {0, 1, 1, 1, 1, 0, 0, 1, 0},
+        {1, 0, 1, 1, 1, 0, 0, 1, 0},
+        {1, 1, 0, 1, 1, 1, 1, 0, 0},
+        {1, 1, 1, 0, 1, 1, 1, 0, 0},
+        {1, 1, 1, 1, 0, 1, 1, 0, 0},
+        {0, 0, 1, 1, 1, 0, 1, 0, 1},
+        {0, 0, 1, 1, 1, 1, 0, 0, 1},
+        {1, 1, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 1, 0, 0}
     };
     int source = 7;
     int target = 8;
 
-    CHECK(fordFulkerson(graf, source, target) == 8);
+    CHECK(fordFulkerson(graf, source, target) == 2);
 }
 
 TEST_CASE("FordFulkerson: Waskie gardlo") {
@@ -165,7 +223,7 @@ TEST_CASE("FordFulkerson: Waskie gardlo") {
     CHECK(fordFulkerson(graf, source, target) == 8);
 }
 
-TEST_CASE("FordFulkerson: Graf uzywajacy krawedzi odwrotnej w szukaniu sciezki") {
+TEST_CASE("FordFulkerson: Uzycie krawedzi odwrotnej w sciezce") {
     vector<vector<int>> graf = {
         {0, 0, 8, 4, 0, 0, 0, 0},
         {0, 0, 9, 0, 0, 0, 0, 0},
@@ -218,7 +276,7 @@ TEST_CASE("FordFulkerson: Brak przeplywu") {
     CHECK(fordFulkerson(graf, source, target) == 0);
 }
 
-TEST_CASE("FordFulkerson: Graf z wielkimi i malymi przepustwosciami") {
+TEST_CASE("FordFulkerson: Graf z wielkimi i malymi przepustowosciami") {
     vector<vector<int>> graf = {
         {0, 0, 1, 0, 1, 0, 0, 0, 0},
         {0, 0, 0, 1, 1000, 0, 0, 0, 0},
@@ -257,19 +315,3 @@ TEST_CASE("FordFulkerson: Wiele zbednych wierzcholkow w grafie") {
 
     CHECK(fordFulkerson(graf, source, target) == 4);
 }
-
-/*
-    Szablon na graf z samymi zerami    
-
-    vector<vector<int>> graf = {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0}
-    };
-*/
