@@ -7,7 +7,7 @@ Wymagania:
 Przed uruchomieniem aplikacji webowej, należy skompilować program główny oraz program wyszukiwarka napisane w C++. W katalogu "Projekt bilbo-vsc/src" projektu wykonaj:
     g++ main.cpp Calosc.cpp Browar.cpp Cwiartka.cpp FordFulkerson.cpp Graf.cpp Karczma.cpp Krawedz.cpp Merge_sort.cpp Pole.cpp Wezel.cpp Drukuj.cpp Zapis.cpp -o program.exe
 W katalogu "Wyszukiwarka" projektu wykonaj:
-    g++ main.cpp BoyerMoore.cpp -o program.exe
+    g++ main.cpp BoyerMoore.cpp KnuthMorrisPratt.cpp Interface.cpp -o wyszukiwarka.exe
 uruchom aplikacje webową:
     app.py
 Po uruchomieniu w przeglądarce wejdź na adres:

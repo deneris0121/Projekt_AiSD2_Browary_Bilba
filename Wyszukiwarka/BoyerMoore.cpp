@@ -1,10 +1,10 @@
-#include <string>
-#include <fstream>
 #include "BoyerMoore.h"
 
 using namespace std;
 
-vector<int> BoyerMoore::buildBadCharTable(const string& pattern) {
+BoyerMoore::BoyerMoore(const string& txt, const string& pattern) : text(txt), pattern(pattern) {}
+
+vector<int> BoyerMoore::buildBadCharTable() {
     const int ALPHABET_SIZE = 256;
     vector<int> badChar(ALPHABET_SIZE, 0);
     for (int i = 0; i < pattern.length(); i++) {
@@ -13,7 +13,7 @@ vector<int> BoyerMoore::buildBadCharTable(const string& pattern) {
     return badChar;
 }
 
-vector<int> BoyerMoore::buildGoodSuffixTable(const string& pattern) {
+vector<int> BoyerMoore::buildGoodSuffixTable() {
     int m = pattern.length();
     vector<int> pi(m+1);
     vector<int> BMNext(m + 1, 0);
@@ -49,22 +49,11 @@ vector<int> BoyerMoore::buildGoodSuffixTable(const string& pattern) {
     return BMNext;
 }
 
-bool BoyerMoore::odczytaj(const string& filename) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "Nie można otworzyć pliku: " << filename << endl;
-        return false;
-    }
-    //odczyt calosci pliku
-    text = string((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    return true;
-}
-
-vector<int> BoyerMoore::search(const string& pattern) {
+vector<int> BoyerMoore::search() {
     vector<int> result;
     //wyznaczamy tablice BMNext i tablice zlych znakow
-    vector<int> badChar = buildBadCharTable(pattern);
-    vector<int> goodSuffix = buildGoodSuffixTable(pattern);
+    vector<int> badChar = buildBadCharTable();
+    vector<int> goodSuffix = buildGoodSuffixTable();
 
     int n = text.length();
     int m = pattern.length();
@@ -104,18 +93,4 @@ vector<int> BoyerMoore::search(const string& pattern) {
     }
 
     return result;
-}
-
-void BoyerMoore::wypisz(const vector<int>& positions, int patternLen) {
-    int current = 0;
-    //wypisujemy tekst przed znalezionym dopasowniem, a samo dopasowanie na kolor 
-    for (int pos : positions) {
-        cout << text.substr(current, pos - current);
-        cout << RED << text.substr(pos, patternLen) << RESET;
-        current = pos + patternLen;
-    }
-    //wypisujemy pozostaly tekst
-    if (current < text.length())
-        cout << text.substr(current);
-    cout << endl;
 }
