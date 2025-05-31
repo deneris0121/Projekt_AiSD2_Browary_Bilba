@@ -196,7 +196,7 @@ int uruchomProgram()
     //macierz sasiedztwa wszystko razem
     //drukujMacierz(macierz_sasiedztwa, "Macierz sasiedztwa (wszystko razem):");
 
-    pair<int, int> przeplywIkoszt = minCostMaxFlow(macierz_sasiedztwa, koszty_napraw, ile - 2, ile - 1);
+    pair<int, int> przeplywIkoszt = SSP(macierz_sasiedztwa, koszty_napraw, ile - 2, ile - 1);
     if(przeplywIkoszt.first == 0){
         cout<<"BLAD1 ";
         return 1;

@@ -271,9 +271,52 @@ TEST_CASE("Dijkstra: Wszystkie mozliwe polaczenia w grafie, zerowe koszty") {
     CHECK(koszty_d[2] == 0);
 }
 
-// Testy MinCostMaxFlow
+// Test aktualizacji potencjalow
 
-TEST_CASE("MinCostMaxFlow: Uzycie krawedzi odwrotnej + pozniejszy cykl") {
+TEST_CASE("Aktualizowanie potencjalow") {
+    int rozmiar = 8;
+    vector<int> koszty_d = {0, 0, 2, 0, 0, 7, 0, 7};
+    vector<int> potencjaly = {0, 0, 2, 4, 8, 7, 0, 7};
+
+    aktualizacjaPotencjalow(rozmiar, koszty_d, potencjaly);
+
+    CHECK(potencjaly[0] == 0);
+    CHECK(potencjaly[1] == 0);
+    CHECK(potencjaly[2] == 4);
+    CHECK(potencjaly[3] == 4);
+    CHECK(potencjaly[4] == 8);
+    CHECK(potencjaly[5] == 14);
+    CHECK(potencjaly[6] == 0);
+    CHECK(potencjaly[7] == 14);
+}
+
+// Testy Successive Shortest Path
+
+TEST_CASE("Successive Shortest Path: Przeplyw 1, jedna sciezka") {
+    vector<vector<int>> graf = {
+        {0, 1, 0, 0, 0},
+        {0, 0, 1, 0, 0},
+        {0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 2, 0, 0, 0},
+        {-2, 0, 3, 0, 0},
+        {0, -3, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}
+    };
+    int source = 3;
+    int target = 4;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 1);
+    CHECK(wynik.second == 5);
+}
+
+TEST_CASE("SSP: Uzycie krawedzi odwrotnej") {
     vector<vector<int>> graf = {
         {0, 2, 8, 8, 0, 0, 0, 0},
         {0, 0, 0, 9, 0, 0, 0, 0},
@@ -297,8 +340,208 @@ TEST_CASE("MinCostMaxFlow: Uzycie krawedzi odwrotnej + pozniejszy cykl") {
     int source = 6;
     int target = 7;
 
-    pair<int, int> wynik = minCostMaxFlow(graf, koszty, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
 
     CHECK(wynik.first == 15);
     CHECK(wynik.second == 130);
+}
+
+TEST_CASE("SSP: Wszystkie mozliwe polaczenia w grafie, zerowe koszty") {
+    vector<vector<int>> graf = {
+        {0, 1, 1, 1, 1, 0, 0, 1, 0},
+        {1, 0, 1, 1, 1, 0, 0, 1, 0},
+        {1, 1, 0, 1, 1, 1, 1, 0, 0},
+        {1, 1, 1, 0, 1, 1, 1, 0, 0},
+        {1, 1, 1, 1, 0, 1, 1, 0, 0},
+        {0, 0, 1, 1, 1, 0, 1, 0, 1},
+        {0, 0, 1, 1, 1, 1, 0, 0, 1},
+        {1, 1, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 1, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 7;
+    int target = 8;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 2);
+    CHECK(wynik.second == 0);
+}
+
+TEST_CASE("SSP: Waskie gardlo") {
+    vector<vector<int>> graf = {
+        {0, 0, 0, 3, 2, 0, 0, 0, 0},
+        {0, 0, 0, 0, 8, 7, 0, 0, 0},
+        {0, 0, 0, 5, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 10, 0, 0},
+        {0, 0, 0, 0, 0, 0, 9, 0, 0},
+        {0, 0, 0, 0, 0, 0, 2, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 8},
+        {6, 4, 9, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 0, 7, 4, 0, 0, 0, 0},
+        {0, 0, 0, 0, 15, 19, 0, 0, 0},
+        {0, 0, 0, 8, 0, 0, 0, 0, 0},
+        {-7, 0, -8, 0, 0, 0, 20, 0, 0},
+        {-4, -15, 0, 0, 0, 0, 16, 0, 0},
+        {0, -19, 0, 0, 0, 0, 6, 0, 0},
+        {0, 0, 0, -20, -16, -6, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 7;
+    int target = 8;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 8);
+    CHECK(wynik.second == 199);
+}
+
+TEST_CASE("SSP: Graf zawierajacy cykl") {
+    vector<vector<int>> graf = {
+        {0, 0, 4, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 2, 2, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 8, 0, 0, 0, 0, 0},
+        {0, 0, 6, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 4, 0, 7, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 4, 2, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 8},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 8},
+        {3, 4, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 4, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 2, 2, 0, 0, 0, 0, 0, 0},
+        {-4, -2, 0, -6, 8, 0, 0, 0, 0, 0},
+        {0, -2, 6, 0, -4, 0, 0, 0, 0, 0},
+        {0, 0, -8, 4, 0, 7, 0, 0, 0, 0},
+        {0, 0, 0, 0, -7, 0, 4, 2, 0, 0},
+        {0, 0, 0, 0, 0, -4, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, -2, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 8;
+    int target = 9;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 6);
+    CHECK(wynik.second == 134);
+}
+
+TEST_CASE("SSP: Brak przeplywu") {
+    vector<vector<int>> graf = {
+        {0, 0, 2, 6, 0, 0, 0, 0},
+        {0, 0, 0, 7, 0, 0, 0, 0},
+        {0, 0, 0, 0, 4, 0, 0, 0},
+        {0, 0, 0, 0, 3, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 4},
+        {6, 4, 9, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 98, 99, 0, 0, 0, 0},
+        {0, 0, 0, 97, 0, 0, 0, 0},
+        {-98, 0, 0, 0, 96, 0, 0, 0},
+        {-99, -97, 0, 0, 95, 0, 0, 0},
+        {0, 0, -96, -95, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 6;
+    int target = 7;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    
+    CHECK(wynik.first == 0);
+    CHECK(wynik.second == 0);
+}
+
+TEST_CASE("SSP: Graf z wielkimi i malymi przepustowosciami") {
+    vector<vector<int>> graf = {
+        {0, 0, 1, 0, 1, 0, 0, 0, 0},
+        {0, 0, 0, 1, 1000, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 0, 0, 0},
+        {0, 0, 1000, 0, 0, 1000, 1, 0, 0},
+        {0, 0, 0, 0, 0, 0, 1, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0, 1000},
+        {1000, 1000, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 1, 0, 900, 0, 0, 0, 0},
+        {0, 0, 0, 800, 700, 0, 0, 0, 0},
+        {-1, 0, 0, -500, 0, 600, 0, 0, 0},
+        {0, -800, 500, 0, 0, 400, 300, 0, 0},
+        {-900, -700, 0, 0, 0, 0, 200, 0, 0},
+        {0, 0, -600, -400, 0, 0, 0, 0, 0},
+        {0, 0, 0, -300, -200, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 7;
+    int target = 8;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 3);
+    CHECK(wynik.second == 2601);
+}
+
+TEST_CASE("SSP: Wiele zbednych wierzcholkow w grafie") {
+    vector<vector<int>> graf = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    vector<vector<int>> koszty = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, -1000, 0, 10000, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, -10000, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    int source = 11;
+    int target = 12;
+
+    pair<int, int> wynik = SSP(graf, koszty, source, target);
+
+    CHECK(wynik.first == 4);
+    CHECK(wynik.second == 44000);
 }

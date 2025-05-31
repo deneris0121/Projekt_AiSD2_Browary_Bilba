@@ -42,14 +42,14 @@ bool Dijkstra(vector<vector<int> >& graf, vector<vector<int> >& koszty_naprawy, 
 				int koszt_efektywny = koszty_naprawy[u][i] + potencjaly[u] - potencjaly[i];
 				
 				// Czy znaleziono tansza sciezke od obecnej
-				if (koszty_dojscia[i] > koszty_dojscia[u] + koszt_efektywny) {
-					
+				if (koszty_dojscia[i] > koszty_dojscia[u] + koszt_efektywny)
+				{
 					// Modyfikacja obecnego kosztu dojscia do danego wierzcholka
 					koszty_dojscia[i] = koszty_dojscia[u] + koszt_efektywny;
 					rodzic[i] = u; // Nowym rodzicem i staje sie u
 					
 					// Jesli dotarlismy do t, jakas sciezka zostala znaleziona. Nie dodajemy t do kolejki
-					if (i == t) { znaleziono = true; continue; }
+					if (i == t) { znaleziono = true; }
 
 					kolejka.push({koszty_dojscia[i], i}); // Dodajemy do kolejki wierzcholek i
 				}
@@ -64,7 +64,15 @@ bool Dijkstra(vector<vector<int> >& graf, vector<vector<int> >& koszty_naprawy, 
 	return znaleziono;
 }
 
-pair<int, int> minCostMaxFlow(vector<vector<int>>& graf, vector<vector<int>>& koszty_naprawy, int s, int t)
+void aktualizacjaPotencjalow(int rozmiar, vector<int>& koszty_dojscia, vector<int>& potencjaly) {
+    for (int i = 0; i < rozmiar; i++) {
+        if (koszty_dojscia[i] < INT_MAX) {
+            potencjaly[i] += koszty_dojscia[i];
+        }
+    }
+}
+
+pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_naprawy, int s, int t)
 {
 	int rozmiar = graf.size();
 	vector<vector<int>> grafkopia = graf; // Kopia macierzy sasiedztwa
@@ -88,11 +96,7 @@ pair<int, int> minCostMaxFlow(vector<vector<int>>& graf, vector<vector<int>>& ko
 	while (Dijkstra(grafkopia, koszty_naprawy, rodzic, koszty_dojscia, potencjaly, s, t)) //jak jest sciezka powiekszajaca
 	{
 		// Aktualizacja potencjalow po Dijkstrze
-        for (int i = 0; i < rozmiar; i++) {
-            if (koszty_dojscia[i] < INT_MAX) {
-                potencjaly[i] += koszty_dojscia[i];
-            }
-        }
+		aktualizacjaPotencjalow(rozmiar, koszty_dojscia, potencjaly);
 
 		int przepustowosc = INT_MAX;
 
