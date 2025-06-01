@@ -14,6 +14,7 @@
 #include "Drukuj.h"
 #include "Calosc.h"
 #include "Zapis.h"
+#include "Huffman.h"
 using namespace std;
 
 //klasa do zapisu wynikow w pliku
@@ -208,6 +209,9 @@ int uruchomProgram()
     
     zapisz.dopisz("Maksymalny przeplyw piwa do karczm: "+to_string(przeplywIkoszt.first)+ " piwa.");
     zapisz.dopisz("Minimalny koszt naprawy drog do przeplywu: "+to_string(przeplywIkoszt.second)+ " sztuk zlota.");
+
+    Huffman kompresator;
+    kompresator.compress("../output/wynik.txt","../output/wynik.bin");
     
     return 0;
 }

@@ -3,6 +3,7 @@
 #include "BoyerMoore.h"
 #include "KnuthMorrisPratt.h"
 #include "Interface.h"
+#include "Dekoder.h"
 
 using namespace std;
 
@@ -27,6 +28,9 @@ int main() {
     getline(cin, pattern);
 
     interface.wybor(text,pattern,wybor);
+
+    Dekoder dekoder;
+    dekoder.decompress("../Projekt bilbo-vsc/output/wynik.bin","../Projekt bilbo-vsc/output/zdekompresowany.txt");
 
 
     return 0;
