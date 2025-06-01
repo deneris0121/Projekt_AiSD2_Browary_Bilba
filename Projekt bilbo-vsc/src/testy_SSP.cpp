@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "FordFulkerson.h"
 #include "Graf.h"
 #include <vector>
 
@@ -310,9 +311,10 @@ TEST_CASE("Successive Shortest Path: Przeplyw 1, jedna sciezka") {
     int source = 3;
     int target = 4;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 1);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 5);
 }
 
@@ -340,9 +342,10 @@ TEST_CASE("SSP: Uzycie krawedzi odwrotnej") {
     int source = 6;
     int target = 7;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 15);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 130);
 }
 
@@ -372,9 +375,10 @@ TEST_CASE("SSP: Wszystkie mozliwe polaczenia w grafie, zerowe koszty") {
     int source = 7;
     int target = 8;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 2);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 0);
 }
 
@@ -404,9 +408,10 @@ TEST_CASE("SSP: Waskie gardlo") {
     int source = 7;
     int target = 8;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 8);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 199);
 }
 
@@ -438,9 +443,10 @@ TEST_CASE("SSP: Graf zawierajacy cykl") {
     int source = 8;
     int target = 9;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 6);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 134);
 }
 
@@ -468,9 +474,10 @@ TEST_CASE("SSP: Brak przeplywu") {
     int source = 6;
     int target = 7;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
-    
-    CHECK(wynik.first == 0);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
+
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 0);
 }
 
@@ -500,9 +507,10 @@ TEST_CASE("SSP: Graf z wielkimi i malymi przepustowosciami") {
     int source = 7;
     int target = 8;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 3);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 2601);
 }
 
@@ -540,8 +548,9 @@ TEST_CASE("SSP: Wiele zbednych wierzcholkow w grafie") {
     int source = 11;
     int target = 12;
 
-    pair<int, int> wynik = SSP(graf, koszty, source, target);
+    int przeplyw = fordFulkerson(graf, source, target);
+    pair<int, int> wynik = SSP(graf, koszty, przeplyw, source, target);
 
-    CHECK(wynik.first == 4);
+    CHECK(wynik.first == przeplyw);
     CHECK(wynik.second == 44000);
 }

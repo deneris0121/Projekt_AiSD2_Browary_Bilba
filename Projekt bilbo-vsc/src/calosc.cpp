@@ -196,17 +196,24 @@ int uruchomProgram()
     //macierz sasiedztwa wszystko razem
     //drukujMacierz(macierz_sasiedztwa, "Macierz sasiedztwa (wszystko razem):");
 
-    pair<int, int> przeplywIkoszt = SSP(macierz_sasiedztwa, koszty_napraw, ile - 2, ile - 1);
-    if(przeplywIkoszt.first == 0){
+    int przeplyw = fordFulkerson(macierz_sasiedztwa,ile-2,ile-1);
+
+    if(przeplyw == 0){
         cout<<"BLAD1 ";
         return 1;
     }
-    cout << "Maksymalny przeplyw piwa do karczm:        \n" << przeplywIkoszt.first << " piwa." << endl;
-    cout << "Minimalny koszt naprawy drog do przeplywu: \n" << przeplywIkoszt.second << " sztuk zlota." << endl;
 
-    // cout<<"Maksymalny przeplyw piwa do karczm: "<<fordFulkerson(macierz_sasiedztwa,ile-2,ile-1)<<endl;
+    pair<int, int> przeplywIkoszt = SSP(macierz_sasiedztwa, koszty_napraw, przeplyw, ile - 2, ile - 1);
+
+    if(przeplyw > przeplywIkoszt.first){
+        cout<<"BLAD4 ";
+        return 1;
+    }
+
+    cout << "Maksymalny przeplyw piwa do karczm:        \n" << przeplyw << " piwa." << endl;
+    cout << "Minimalny koszt naprawy drog do przeplywu: \n" << przeplywIkoszt.second << " sztuk zlota." << endl;
     
-    zapisz.dopisz("Maksymalny przeplyw piwa do karczm: "+to_string(przeplywIkoszt.first)+ " piwa.");
+    zapisz.dopisz("Maksymalny przeplyw piwa do karczm: "+to_string(przeplyw)+ " piwa.");
     zapisz.dopisz("Minimalny koszt naprawy drog do przeplywu: "+to_string(przeplywIkoszt.second)+ " sztuk zlota.");
     
     return 0;

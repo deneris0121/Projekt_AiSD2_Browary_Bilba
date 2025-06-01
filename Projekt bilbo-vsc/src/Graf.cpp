@@ -72,7 +72,7 @@ void aktualizacjaPotencjalow(int rozmiar, vector<int>& koszty_dojscia, vector<in
     }
 }
 
-pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_naprawy, int s, int t)
+pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_naprawy, int znaleziony_przeplyw, int s, int t)
 {
 	int rozmiar = graf.size();
 	vector<vector<int>> grafkopia = graf; // Kopia macierzy sasiedztwa
@@ -90,10 +90,11 @@ pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_napraw
 	*  Dijkstra bedzie zawsze dzialac. */
 	vector<int> potencjaly(rozmiar, 0);  // Tablica "potencjalow" wierzcholkow (przesuniecia, aby nie wystapily ujemne koszty)
 
-	int maxprzeplyw = 0; // Maksymalny przeplyw
-	int minkoszt = 0;    // Minimalny koszt naprawy drog
+	int przeplyw = 0; // Maksymalny przeplyw
+	int minkoszt = 0; // Minimalny koszt naprawy drog
 
-	while (Dijkstra(grafkopia, koszty_naprawy, rodzic, koszty_dojscia, potencjaly, s, t)) //jak jest sciezka powiekszajaca
+	// Dopoki obecny przeplyw jest mniejszy od oczekiwanego i dopoki istnieje sciezka
+	while (przeplyw < znaleziony_przeplyw && Dijkstra(grafkopia, koszty_naprawy, rodzic, koszty_dojscia, potencjaly, s, t))
 	{
 		// Aktualizacja potencjalow po Dijkstrze
 		aktualizacjaPotencjalow(rozmiar, koszty_dojscia, potencjaly);
@@ -106,6 +107,10 @@ pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_napraw
 			przepustowosc = min(przepustowosc, grafkopia[j][i]);
 		}
 
+		// Ograniczamy przeplyw do tego, ile jeszcze potrzebujemy, ale nie wiecej niz przeplynie przez obecna sciezke
+		int ile_mozna_dodac = znaleziony_przeplyw - przeplyw;
+		przepustowosc = min(przepustowosc, ile_mozna_dodac);
+
 		for (int i = t; i != s; i = rodzic[i]) // Aktualizowanie przepustowosci na biezaco i dodawanie przeplywu w druga strone
 		{
 			int j = rodzic[i];
@@ -116,8 +121,8 @@ pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty_napraw
 			minkoszt += przepustowosc * koszty_naprawy[j][i];
 		}
 
-		maxprzeplyw += przepustowosc;
+		przeplyw += przepustowosc;
 	}
 
-	return {maxprzeplyw, minkoszt};
+	return {przeplyw, minkoszt};
 }

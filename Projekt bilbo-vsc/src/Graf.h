@@ -8,6 +8,6 @@ bool Dijkstra(vector<vector<int>>& graf, vector<vector<int>>& koszty_naprawy, ve
 
 void aktualizacjaPotencjalow(int rozmiar, vector<int>& koszty_dojscia, vector<int>& potencjaly);
 
-pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty, int s, int t);
+pair<int, int> SSP(vector<vector<int>>& graf, vector<vector<int>>& koszty, int znaleziony_przeplyw, int s, int t);
 
 #endif
