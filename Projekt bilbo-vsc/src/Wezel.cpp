@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 //#include "pch.h"
 #include "Wezel.h"
 #include "Merge_sort.h"
