@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
     Interface interface;
     string text;
-    string filename = "../Projekt bilbo-vsc/output/wynik.bin";
+    string filename = "../Projekt_AiSD2_Browary_Bilba/Projekt bilbo-vsc/output/wynik.bin";
     Dekoder dekoder;
     dekoder.decompress(filename,text);
 

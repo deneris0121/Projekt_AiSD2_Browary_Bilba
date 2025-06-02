@@ -70,7 +70,27 @@ main {
     aspect-ratio: auto;
     position: absolute;
 }
-
+.menu2 {
+    background-image: url(images/menu-bg.png);
+    height: 646px;
+    width: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    aspect-ratio: auto;
+    position: absolute;
+}
+.menu3 {
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
 .main2 {
     min-height: 70vh;
     display: flex;
@@ -147,7 +167,24 @@ main {
     font-style: normal;
     font-size: 1.5rem;
 }
-
+.output-moldnot2 {
+    max-height: 90vh; /* podobnie jak w drugim stylu */
+    height: 400px; /* zachowanie wysokości */
+    overflow-y: auto; /* pionowe przewijanie */
+    background-color: #EED5A2; /* Twoje jasne tło */
+    color: #111; /* ciemny tekst, odwrotność drugiego stylu */
+    padding: 1em;
+    font-family: monospace;
+    border: 5px solid #7F5934;
+    border-radius: 5px;
+    /* usuwam flex, bo drugi styl tego nie ma */
+}
+.output-moldnot2 pre {
+    margin: 0;
+    white-space: pre-wrap; /* zawijanie tekstu */
+    word-wrap: break-word; /* zawijanie długich słów */
+    color: #111; /* żeby tekst w pre był taki sam */
+}
 
 .output-moldnot {
     margin: 12px 73px 12px 73px;

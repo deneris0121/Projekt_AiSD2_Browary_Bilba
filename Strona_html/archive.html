@@ -1,12 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archiwum - Browary Bilba</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Wyszukiwarka</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css-reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
-<body>
-    
+<body class="end">
+    <nav>
+        <div class="header">
+            <h1>Archiwum</h1>
+        </div>
+    </nav>
+    <main>
+        <div class="menu">
+            <div class="deska">
+                <div class="screw"></div>
+                <h2 class="data">podaj jaką metodą chcesz wyszukiwać słowo</h2>
+                <div class="screw"></div>
+            </div>
+            <div class="wrapper">
+                
+                <a href="#" class="accept-button" onclick="chooseAlgo(1)">KnuthMorrisPratt</a>
+                <a href="#" class="accept-button" onclick="chooseAlgo(2)">BoyerMoore</a>
+            </div>
+            <div class="deska">
+                <div class="screw"></div>
+                <h2 class="data">podaj szukane słowo:</h2>
+                <div class="screw"></div>
+            </div>
+            <div class="wrapper">
+                <form id="dataForm">
+                    <input type="text" name="szukane słowo" id="teks" placeholder="tekst" class="text-input">
+                    <button type="submit" class="accept-button">Akceptuj</button>
+                </form>
+            </div>
+        </div>
+    </main>
+  <script>
+    function chooseAlgo(num) {
+        localStorage.setItem("selectedAlgo", num);
+    }
+
+    document.getElementById("dataForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const word = document.getElementById("teks").value;
+        const algo = localStorage.getItem("selectedAlgo");
+        if (!algo || !word) {
+            alert("Wybierz metodę i wpisz słowo!");
+            return;
+        }
+
+        // Utwórz ukryty formularz i wyślij go POSTem
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/start_archive";
+
+        const inputWord = document.createElement("input");
+        inputWord.type = "hidden";
+        inputWord.name = "user_input";
+        inputWord.value = word;
+
+        const inputAlgo = document.createElement("input");
+        inputAlgo.type = "hidden";
+        inputAlgo.name = "algo";
+        inputAlgo.value = algo;
+
+        form.appendChild(inputWord);
+        form.appendChild(inputAlgo);
+        document.body.appendChild(form);
+        form.submit();
+    });
+</script>
 </body>
 </html>

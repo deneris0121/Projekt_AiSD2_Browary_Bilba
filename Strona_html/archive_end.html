@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wynik Działania Programu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css-reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body class="body">
+    <nav>
+        <div class="header">
+            <h1>Wyniki Analizy</h1>
+        </div>
+        <div class="Archive-Button">
+            <a href="{{ url_for('archive') }}">
+                <img src="{{ url_for('static', filename='Button-Archive.svg') }}" alt="archive button" href="archive.html">
+            </a>
+        </div>
+    </nav>
+    <main>
+        <div class="menu3">
+            <div class="deska">
+                <div class="screw"></div>
+                <h2 class="data">Wynik wyszukiwania:</h2>
+                <div class="screw"></div>
+            </div>
+            <div class="output-moldnot2">
+                <pre id="output">{{ result | e }}</pre></pre>  <!-- Wyświetlenie wyniku w bloku tekstowym -->
+            </div>
+            <div class="retry-button">
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static',filename='Button-Retry.png') }}" alt="retry button" href="archive.html">
+                </a>
+            </div>
+        </div>
+    </main>
+    <script>
+        function ansiToHtml(text) {
+            return text
+            .replace(/\[1;31m/g, '<span style="color:red; font-weight:bold;">')
+            .replace(/\[0m/g, '</span>');
+        }
+
+        // Pobierz element z wynikiem
+        const pre = document.getElementById('output');
+        // Pobierz tekst z elementu
+        const rawText = pre.textContent;
+        // Zamień kody ANSI na HTML
+        const htmlText = ansiToHtml(rawText);
+        // Wstaw wynik jako HTML
+        pre.innerHTML = htmlText;
+    </script>
+</body>
+</html>

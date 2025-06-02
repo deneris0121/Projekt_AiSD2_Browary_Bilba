@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify,redirect, url_for, session
 import json
+import re
 import subprocess
 import os
 
@@ -8,6 +9,11 @@ app = Flask(__name__,
             static_folder='Strona_html')        # Statyczne pliki (CSS, obrazy)
 
 app.secret_key = 'tajny_klucz' 
+def koloruj_czerwony(text):
+    # Zamiana [1;3m ... [0m na <span style="color:red"> ... </span>
+    pattern = re.compile(r'\[1;3m(.*?)\[0m')
+    return pattern.sub(r'<span style="color:red">\1</span>', text)
+
 #strona poczatkowa
 @app.route('/')
 def home():
@@ -53,7 +59,11 @@ def output():
 @app.route('/archive')
 def archive():
     return render_template('archive.html')
-
+#archiwum-wynik
+@app.route('/archive-end')
+def archive_end():
+    result = session.get('result', 'Brak wyników do wyświetlenia.')
+    return render_template('archive_end.html', result=result)
 
 @app.route('/error')
 def error():
@@ -62,6 +72,33 @@ def error():
 @app.route('/zPliku')
 def zPliku():
     return render_template('zPliku.html')
+
+@app.route('/start_archive', methods=['GET', 'POST'])
+def start_archive():
+    result = None
+    if request.method == 'POST':
+        user_input = request.form['user_input']
+        algo = request.form['algo']  # "1" lub "2"
+        exe_dir = os.path.join(os.path.dirname(__file__), 'Wyszukiwarka')
+        exe_path = os.path.join(exe_dir, 'wyszukiwarka.exe')
+
+        # Uruchom program i przekaż dane użytkownika jako argument
+        try:
+            process = subprocess.run(
+                [exe_path, algo, user_input],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            result = process.stdout
+        except subprocess.CalledProcessError as e:
+            result = f"Błąd podczas uruchamiania programu: {e.stderr}"
+        
+        result =koloruj_czerwony(result)
+        print("Wynik po podmianie:", result) 
+
+        return render_template('archive_end.html', result=result)
+
 
 @app.route('/save_data', methods=['POST'])
 def save_data():
