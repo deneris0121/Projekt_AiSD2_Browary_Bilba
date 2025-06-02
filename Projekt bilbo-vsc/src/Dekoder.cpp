@@ -42,8 +42,8 @@ void Dekoder::deleteTree(Node* root) {
 void Dekoder::decompress(const string& inputFile, string& output) {
     ifstream file(inputFile, ios::binary);
     if (!file.is_open()) {
-        cout << "Nie mozna otworzyc pliku: " << inputFile << endl;
-        exit(0);
+        //cout << "Nie mozna otworzyc pliku: " << inputFile << endl;
+        return ;
     }
 
     int ile;
