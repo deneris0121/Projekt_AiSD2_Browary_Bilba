@@ -21,7 +21,7 @@ struct Compare {
 class Huffman {
 public:
     //tworzy skompresowany plik
-    void compress(const string& input, const string& outputFile);
+    void compress(const string& text, const string& outputFile);
 
 private:
 

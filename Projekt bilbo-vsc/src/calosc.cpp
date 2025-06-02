@@ -13,12 +13,12 @@
 #include "FordFulkerson.h"
 #include "Drukuj.h"
 #include "Calosc.h"
-#include "Zapis.h"
 #include "Huffman.h"
+#include "Dekoder.h"
 using namespace std;
 
-//klasa do zapisu wynikow w pliku
-Zapis zapisz("../output/wynik.txt");
+//do zapisu
+string text;
 
 //to samo co funkcja wyzej tylko ze dla pliku
 vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
@@ -66,12 +66,11 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
         vector<int> przypisaneCwiartki = pl[i].znajdzCwiartki(cw);
         if(przypisaneCwiartki.size() != 1){
             cout<<"BLAD2 ";
-            zapisz.dopisz("BLAD2");
             return {};
         }
         for(int i=0;i<przypisaneCwiartki.size();i++){
             cout<<"pole "<< i+1 <<" lezy w :"<< przypisaneCwiartki[i]+1<<" Cwiartce"<<endl;
-            zapisz.dopisz("pole "+to_string(i+1)+" lezy w :"+to_string(przypisaneCwiartki[i]+1)+" Cwiartce");
+            text += "pole "+to_string(i+1)+" lezy w :"+to_string(przypisaneCwiartki[i]+1)+" Cwiartce\n";
         }
         double sumaJeczmienia = 0;
 
@@ -81,11 +80,10 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
         }
         if(sumaJeczmienia < 1){
             cout<<"BLAD3 ";
-            zapisz.dopisz("BLAD3");
             return {};
         }
         cout<<"calkowita wartosc jeczmienia dla pola "<< i+1 << ": "<< sumaJeczmienia <<endl;
-        zapisz.dopisz("calkowita wartosc jeczmienia dla pola "+to_string(i+1)+" "+to_string(sumaJeczmienia));
+        text += "calkowita wartosc jeczmienia dla pola "+to_string(i+1)+" "+to_string(sumaJeczmienia)+"\n";
         pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia);
         pl[i].ustawSredniaXY();
     }
@@ -102,6 +100,10 @@ int uruchomProgram()
     vector<vector<int>> macierz_sasiedztwa_zboze;
     vector<vector<int>> macierz_sasiedztwa_piwo;
     vector<vector<int>> macierz_sasiedztwa;
+
+    //zapisujemy obecna zawartosc pliku do zmienej text
+    Dekoder dekoder;
+    dekoder.decompress("../output/wynik.bin",text);
 
     //---------------------------> Wczytywanie z pliku <---------------------------
     fstream plik;
@@ -214,11 +216,11 @@ int uruchomProgram()
     cout << "Maksymalny przeplyw piwa do karczm:        \n" << przeplyw << " piwa." << endl;
     cout << "Minimalny koszt naprawy drog do przeplywu: \n" << przeplywIkoszt.second << " sztuk zlota." << endl;
     
-    zapisz.dopisz("Maksymalny przeplyw piwa do karczm: "+to_string(przeplyw)+ " piwa.");
-    zapisz.dopisz("Minimalny koszt naprawy drog do przeplywu: "+to_string(przeplywIkoszt.second)+ " sztuk zlota.");
+    text += "Maksymalny przeplyw piwa do karczm: " + to_string(przeplyw) + " piwa.\n";
+    text += "Minimalny koszt naprawy drog do przeplywu: " + to_string(przeplywIkoszt.second) + " sztuk zlota.\n";
 
     Huffman kompresator;
-    kompresator.compress("../output/wynik.txt","../output/wynik.bin");
+    kompresator.compress(text,"../output/wynik.bin");
     
     return 0;
 }

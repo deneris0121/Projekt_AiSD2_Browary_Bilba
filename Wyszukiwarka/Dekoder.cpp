@@ -44,7 +44,7 @@ void Dekoder::deleteTree(Node* root) {
     delete root;
 }
 
-void Dekoder::decompress(const string& inputFile, const string& outputFile) {
+void Dekoder::decompress(const string& inputFile, string& output) {
     ifstream file(inputFile, ios::binary);
     if (!file.is_open()) {
         cout << "Nie mozna otworzyc pliku: " << inputFile << endl;
@@ -85,7 +85,6 @@ void Dekoder::decompress(const string& inputFile, const string& outputFile) {
 
     bitString = bitString.substr(0, bitLength); // usuwamy niepotrzebne znaki
 
-    ofstream out(outputFile);
     Node* current = root;
     for (char bit : bitString) {
         //przechodzimy po drzewie zeby zdekodowac 
@@ -98,11 +97,10 @@ void Dekoder::decompress(const string& inputFile, const string& outputFile) {
 
         if (!current->left && !current->right) {
             //zapisujemy poprawna litere
-            out << current->ch;
+            output = output + current->ch;
             current = root;
         }
     }
-    out.close();
 
     deleteTree(root);
 }

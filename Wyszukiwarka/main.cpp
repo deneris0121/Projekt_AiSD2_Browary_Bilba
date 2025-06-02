@@ -7,30 +7,16 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
+
 
     Interface interface;
     string text;
-    string filename = "../Projekt bilbo-vsc/output/wynik.txt";
-    if (!interface.odczytaj(filename,text)) {
-        return 1;
-    }
-    cout<<"Wybierz wyszukiwarke"<<endl
-        <<"1. Wyszukiwarka Knutha-Morrisa-Pratta"<<endl
-        <<"2. Wyszukiwarka Boyera-Moore'a"<<endl;
-    int wybor; 
-    cin>>wybor;
-
-    cin.ignore();
-
-    string pattern;
-    cout << "Podaj wzorzec do wyszukania: ";
-    getline(cin, pattern);
-
-    interface.wybor(text,pattern,wybor);
-
+    string filename = "../Projekt bilbo-vsc/output/wynik.bin";
     Dekoder dekoder;
-    dekoder.decompress("../Projekt bilbo-vsc/output/wynik.bin","../Projekt bilbo-vsc/output/zdekompresowany.txt");
+    dekoder.decompress(filename,text);
+
+    interface.wybor(text,argv[2],atoi(argv[1]));
 
 
     return 0;

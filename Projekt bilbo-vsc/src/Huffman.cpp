@@ -63,15 +63,7 @@ void Huffman::deleteTree(Node* root) {
     delete root;
 }
 
-void Huffman::compress(const string& input, const string& outputFile) {
-    ifstream file(input);
-    if (!file.is_open()) {
-        cout << "Nie mozna otworzyc pliku: " << input << endl;
-        exit(0);
-    }
-    //odczytuje zawartosc pliku
-    string text((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    file.close();
+void Huffman::compress(const string& text, const string& outputFile) {
 
     //tworzymy mape <znak,ilosc>
     map<char, int> charMap;
@@ -95,9 +87,6 @@ void Huffman::compress(const string& input, const string& outputFile) {
         bitString += codes[ch];
     }
 
-    //dopisujemy rozmiar naszego tekstu
-    /*size_t bitLength = bitString.size();
-    out << static_cast<size_t>(bitLength) << '\n';*/
     size_t bitLength = bitString.size();
     out.write(reinterpret_cast<const char*>(&bitLength), sizeof(bitLength));
 

@@ -22,7 +22,7 @@ struct Compare {
 class Dekoder {
 public:
     //dekompresuje(odczytuje plik)
-    void decompress(const string& inputFile, const string& outputFile);
+    void decompress(const string& inputFile, string& output);
 
 private:
     //buduje drzewo
