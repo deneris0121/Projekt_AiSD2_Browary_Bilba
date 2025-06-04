@@ -41,7 +41,7 @@ void Huffman::buildCodes(Node* root, const string& str, map<char, string>& codes
     if (!root) return;
     //przypisanie kodu do znaku
     if (!root->left && !root->right){
-        codes[root->ch] = str;
+        codes[root->ch] = str.empty() ? "0" : str; // obsługa jednego znaku
     }
     //idziemy w lewo po drzewie dopisujemy 0 do kodu
     buildCodes(root->left, str + "0", codes);
@@ -64,6 +64,13 @@ void Huffman::deleteTree(Node* root) {
 }
 
 void Huffman::compress(const string& text, const string& outputFile) {
+
+    if(text.size()==0){
+        ofstream out(outputFile, ios::binary);
+        out << 0 << '\n';
+        out.close();
+        return ; //nie ma nic do kompresji wiec konczymy dzialanie
+    }
 
     //tworzymy mape <znak,ilosc>
     map<char, int> charMap;
@@ -104,6 +111,8 @@ void Huffman::compress(const string& text, const string& outputFile) {
         //zapisujemy go do pliku
         out.write(&c, 1);
     }
+
+    //zamykamy plik i usuwamy drzewo
     out.close();
     deleteTree(root);
 }

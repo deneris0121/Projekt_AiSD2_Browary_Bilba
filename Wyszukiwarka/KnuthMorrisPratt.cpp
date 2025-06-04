@@ -24,10 +24,17 @@ vector<int> KnuthMorrisPratt::buildPrefixTable() {
 
 vector<int> KnuthMorrisPratt::search(){
     vector<int> result;
+
+    //sprawdzamy czy wzorzec ma dlugosc wieksza od zera i mniejsza badz rowna tekstowi
+    int m = pattern.length();
+    int n = text.length();
+    if (m == 0 || n < m){
+        return result;
+    }
+
     //wyznaczamy tablice prefiksowa
     vector<int> prefixTable = buildPrefixTable();
-    int n = text.length();
-    int m = pattern.length();
+
     int k = 0;
 
     for (int i = 0; i < n; ++i) {

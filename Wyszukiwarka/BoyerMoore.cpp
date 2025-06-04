@@ -51,15 +51,17 @@ vector<int> BoyerMoore::buildGoodSuffixTable() {
 
 vector<int> BoyerMoore::search() {
     vector<int> result;
+
+    //sprawdzamy czy wzorzec ma dlugosc wieksza od zera i mniejsza badz rowna tekstowi
+    int m = pattern.length();
+    int n = text.length();
+    if (m == 0 || n < m){
+        return result;
+    }
+
     //wyznaczamy tablice BMNext i tablice zlych znakow
     vector<int> badChar = buildBadCharTable();
     vector<int> goodSuffix = buildGoodSuffixTable();
-
-    int n = text.length();
-    int m = pattern.length();
-
-    //sprawdzamy czy wzorzec ma dlugosc wieksza od zera i mniejsza badz rowna tekstowi
-    if (m == 0 || n < m) return result;
 
     int s = 0; // przesunięcie wzorca
     while (s <= n - m) {

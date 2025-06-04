@@ -53,6 +53,11 @@ void Dekoder::decompress(const string& inputFile, string& output) {
 
     int ile;
     file >> ile;
+    if (ile == 0){
+        output = "";
+        file.close();
+        return ;  // konczymy dzilanie nic wiecej nie ma
+    }
     //file.get(); // pomijamy '\n'
 
     //tworzymy mape <znak,ile>
@@ -66,6 +71,14 @@ void Dekoder::decompress(const string& inputFile, string& output) {
     }
 
     Node* root = buildTree(charMap);
+
+    //zabezpieczenie dla pojedynczego znaku 
+    if (!root->left && !root->right) {
+        output = string(charMap.begin()->second, root->ch);
+        file.close();
+        deleteTree(root);
+        return;
+    }
 
     //czytamy dlugosc pliku przed dodaniem 0
     /*int bitLength;
