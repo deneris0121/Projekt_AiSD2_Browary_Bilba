@@ -42,7 +42,7 @@ void Interface::wybor(const string& text, const string& pattern, int wybor){
         if (wynik.empty()) {
             cout << "Nie znaleziono wzorca." << endl;
         } else {
-            cout << "Znaleziono " << wynik.size() << " wystapien:\n";
+            cout << "Znaleziono " << wynik.size() << " wystapienia:\n";
             wypisz(text, wynik, pattern.length());
         }
     }

@@ -19,6 +19,7 @@ using namespace std;
 
 //do zapisu
 string text;
+string dane_cwiartek;
 
 //to samo co funkcja wyzej tylko ze dla pliku
 vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
@@ -32,15 +33,18 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
         iloscwv.push_back(iloscw);
 
         in >> wydajnosc;
+        dane_cwiartek += "\nDane cwiartki "+ to_string(i+1)+": " + to_string(iloscw) + ", " + to_string(wydajnosc);
         Cwiartka c;
         c.ustawWydaj(wydajnosc);
         cw.push_back(c);
     }
 
     for (int i = 0; i < 4; i++) {
+        dane_cwiartek += "\nWspolrzedne dla cwiartki " + to_string(i+1)+": ";
         for (int j = 0; j < iloscwv[i]; j++) {
             int x_, y_;
             in >> x_ >> y_;
+            dane_cwiartek += "(" + to_string(x_) + ", " + to_string(y_) + ") ";
             cw[i].dodajWierzcholek(x_, y_);
         }
     }
@@ -54,9 +58,11 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
 
     for (int i = 0; i < iloscp; i++) {
         Pole p;
+        dane_cwiartek += "\nWspolrzedne pola " + to_string(i+1) + ": ";
         for (int j = 0; j < iloscwv[i]; j++) {
             int x_, y_;
             in >> x_ >> y_;
+            dane_cwiartek += "(" + to_string(x_) + ", " + to_string(y_) + ") ";
             p.dodajPunkt(x_, y_);
         }
         pl.push_back(p);
@@ -69,8 +75,8 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
             return {};
         }
         for(int i=0;i<przypisaneCwiartki.size();i++){
-            cout<<"pole "<< i+1 <<" lezy w :"<< przypisaneCwiartki[i]+1<<" Cwiartce"<<endl;
-            text += "pole "+to_string(i+1)+" lezy w :"+to_string(przypisaneCwiartki[i]+1)+" Cwiartce\n";
+            cout<<"pole "<< i+1 <<" lezy w: "<< przypisaneCwiartki[i]+1<<" Cwiartce"<<endl;
+            text += "pole "+to_string(i+1)+" lezy w: " + to_string(przypisaneCwiartki[i]+1)+" Cwiartce\n";
         }
         double sumaJeczmienia = 0;
 
@@ -83,7 +89,7 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
             return {};
         }
         cout<<"calkowita wartosc jeczmienia dla pola "<< i+1 << ": "<< sumaJeczmienia <<endl;
-        text += "calkowita wartosc jeczmienia dla pola "+to_string(i+1)+" "+to_string(sumaJeczmienia)+"\n";
+        text += "calkowita wartosc jeczmienia dla pola "+ to_string(i+1) + " " + to_string(sumaJeczmienia)+"\n";
         pl[i].ustawcalkowita_wartosc_jeczmienia(sumaJeczmienia);
         pl[i].ustawSredniaXY();
     }
@@ -104,6 +110,8 @@ int uruchomProgram()
     //zapisujemy obecna zawartosc pliku do zmienej text
     Dekoder dekoder;
     dekoder.decompress("../output/wynik.bin",text);
+
+    text += "////////////////////////////////////////////////////////////////////////\nWyniki:\n"; 
 
     //---------------------------> Wczytywanie z pliku <---------------------------
     fstream plik;
@@ -145,6 +153,7 @@ int uruchomProgram()
         int x_, y_;
         int przetworzenie_;
         plik >> x_ >> y_ >> przetworzenie_;
+        dane_cwiartek += "\nDane browaru " + to_string(i+1) + ": (" + to_string(x_) + ", " + to_string(y_) + ") " + to_string(przetworzenie_);
         browary.emplace_back(x_, y_, przetworzenie_);
     }
 
@@ -153,6 +162,7 @@ int uruchomProgram()
         int x_, y_;
         int zapotrzebowanie_;
         plik >> x_ >> y_ >> zapotrzebowanie_;
+        dane_cwiartek += "\nDane karczmy " + to_string(i+1) + ": (" + to_string(x_) + ", " + to_string(y_) + ") " + to_string(zapotrzebowanie_);
         karczmy.emplace_back(x_, y_, zapotrzebowanie_);
         macierz_sasiedztwa_piwo[ile_skrzyzowan - ile_karczm + i][ile - 1] = zapotrzebowanie_;
         macierz_sasiedztwa[ile_skrzyzowan - ile_karczm + i][ile - 1] += zapotrzebowanie_;
@@ -166,6 +176,8 @@ int uruchomProgram()
         int przepustowosc_zboze_ = 0;
         int przepustowosc_piwo_ = 0;
         plik >> x_ >> y_ >> przepustowosc_zboze_ >> przepustowosc_piwo_ >> naprawa_;
+        dane_cwiartek += "\nDane polaczenia " + to_string(i+1) + ": (" + to_string(x_) + ", " + to_string(y_) + ") " 
+                        + to_string(przepustowosc_zboze_) + " " + to_string(przepustowosc_piwo_) + " " + to_string(naprawa_);
         krawedzie.emplace_back(x_, y_, przepustowosc_zboze_, przepustowosc_piwo_, naprawa_);
         macierz_sasiedztwa_zboze[x_][y_] = przepustowosc_zboze_;
         macierz_sasiedztwa_piwo[x_][y_] = przepustowosc_piwo_;
@@ -218,6 +230,12 @@ int uruchomProgram()
     
     text += "Maksymalny przeplyw piwa do karczm: " + to_string(przeplyw) + " piwa.\n";
     text += "Minimalny koszt naprawy drog do przeplywu: " + to_string(przeplywIkoszt.second) + " sztuk zlota.\n";
+    text += "\nDla danych:\nIlosc pol: " + to_string(ile_pol);
+    text += "\nIlosc browarow: " + to_string(ile_browarow);
+    text += "\nIlosc karczm: " + to_string(ile_karczm);
+    text += "\nIlosc skrzyzowan: " + to_string(ile_skrzyzowan);
+    text += "\nIlosc krawedzi: " + to_string(ile_krawedzi);
+    text += dane_cwiartek + "\n";
 
     Huffman kompresator;
     kompresator.compress(text,"../output/wynik.bin");
