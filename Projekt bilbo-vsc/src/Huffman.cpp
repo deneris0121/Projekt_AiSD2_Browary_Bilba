@@ -94,6 +94,7 @@ void Huffman::compress(const string& text, const string& outputFile) {
         bitString += codes[ch];
     }
 
+    //zapisujemy wielkosc pliku(dlugosc do odczytu)
     size_t bitLength = bitString.size();
     out.write(reinterpret_cast<const char*>(&bitLength), sizeof(bitLength));
 
