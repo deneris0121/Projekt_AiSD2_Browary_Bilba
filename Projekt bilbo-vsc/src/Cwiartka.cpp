@@ -81,7 +81,7 @@ bool Cwiartka::punktNaKrawedzi(Wezel& a, Wezel& b, Wezel& p) {
      - le�y na tej samej linii (sprawdzamy orientacj�)
      */
 
-    double crossProduct = (p.getY() - a.getY()) * (b.getX() - a.getX()) - (p.getX() - a.getX()) * (b.getY() - a.getY());
+    double crossProduct = Wezel::iloczynWektorowy(a,p,b);
     if (abs(crossProduct) > 1e-9) {  // Zbyt ma�a tolerancja dla dok�adno�ci zmiennoprzecinkowej
         return false;  // Punkt nie le�y na tej samej linii
     }

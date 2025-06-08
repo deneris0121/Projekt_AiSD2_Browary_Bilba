@@ -176,6 +176,10 @@ int uruchomProgram()
         int przepustowosc_zboze_ = 0;
         int przepustowosc_piwo_ = 0;
         plik >> x_ >> y_ >> przepustowosc_zboze_ >> przepustowosc_piwo_ >> naprawa_;
+        if(naprawa_ <0){
+            cout<<"BLAD1 ";
+            return 1;
+        }
         dane_cwiartek += "\nDane polaczenia " + to_string(i+1) + ": (" + to_string(x_) + ", " + to_string(y_) + ") " 
                         + to_string(przepustowosc_zboze_) + " " + to_string(przepustowosc_piwo_) + " " + to_string(naprawa_);
         krawedzie.emplace_back(x_, y_, przepustowosc_zboze_, przepustowosc_piwo_, naprawa_);
