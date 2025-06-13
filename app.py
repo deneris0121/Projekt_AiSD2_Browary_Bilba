@@ -3,6 +3,7 @@ import json
 import re
 import subprocess
 import os
+import time
 
 app = Flask(__name__,
             template_folder='Strona_html',      # Szablony HTML
@@ -95,7 +96,6 @@ def start_archive():
             result = f"Błąd podczas uruchamiania programu: {e.stderr}"
         
         result =koloruj_czerwony(result)
-        print("Wynik po podmianie:", result) 
 
         return render_template('archive_end.html', result=result)
 
@@ -210,5 +210,58 @@ def upload_txt():
         session['output'] = f"Błąd: {e}"
 
     return redirect(url_for('show_result'))
+def needs_recompile(exe_path, cpp_paths):
+    if not os.path.exists(exe_path):
+        return True
+    exe_mtime = os.path.getmtime(exe_path)
+    for cpp in cpp_paths:
+        if os.path.getmtime(cpp) > exe_mtime:
+            return True
+    return False
 if __name__ == '__main__':
+    # Ścieżki do pliku źródłowego i wynikowego .exe
+    src_dir = os.path.join(os.path.dirname(__file__), 'Projekt bilbo-vsc', 'src')
+    cpp_files = [
+        "main.cpp", "Calosc.cpp", "Browar.cpp", "Cwiartka.cpp",
+        "FordFulkerson.cpp", "Graf.cpp", "Karczma.cpp", "Krawedz.cpp",
+        "Merge_sort.cpp", "Pole.cpp", "Wezel.cpp", "Drukuj.cpp","Dekoder.cpp" ,"Huffman.cpp"
+    ]
+    cpp_paths = [os.path.join(src_dir, f) for f in cpp_files]
+    exe_file = os.path.join(src_dir, 'program.exe')
+
+    # ścieżki do pliku z archiwum .exe
+    src_dir_arch = os.path.join(os.path.dirname(__file__), 'Wyszukiwarka')
+    cpp_files_arch = [
+        "main.cpp", "BoyerMoore.cpp", "KnuthMorrisPratt.cpp", 
+        "Interface.cpp", "Dekoder.cpp"
+    ]
+    cpp_paths_arch = [os.path.join(src_dir_arch, f) for f in cpp_files_arch]
+    exe_file_arch = os.path.join(src_dir_arch, 'wyszukiwarka.exe')
+
+    
+    if needs_recompile(exe_file, cpp_paths):
+        print("🔄 Kompiluję program główny...")
+        compile_result = subprocess.run(
+            ['g++'] + cpp_paths + ['-o', exe_file],
+            capture_output=True,
+            text=True
+        )
+        if compile_result.returncode != 0:
+            print("Błąd kompilacji:")
+            print(compile_result.stderr)
+        else:
+            print("Kompilacja zakończona sukcesem.")
+    if needs_recompile(exe_file_arch, cpp_paths_arch):
+        print("🔄 Kompiluję wyszukiwarkę...")
+        compile_result_arch = subprocess.run(
+            ['g++'] + cpp_paths_arch + ['-o', exe_file_arch],
+            capture_output=True,
+            text=True
+        )
+        if compile_result_arch.returncode != 0:
+            print("Błąd kompilacji:")
+            print(compile_result_arch.stderr)
+        else:
+            print("Kompilacja zakończona sukcesem.")
+    # Start Flaska
     app.run(debug=True)
