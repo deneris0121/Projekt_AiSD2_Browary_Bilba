@@ -74,9 +74,9 @@ vector<Pole> polaICwiartkizPliku(std::istream& in, int iloscp) {
             cout<<"BLAD2 ";
             return {};
         }
-        for(int i=0;i<przypisaneCwiartki.size();i++){
-            cout<<"pole "<< i+1 <<" lezy w: "<< przypisaneCwiartki[i]+1<<" Cwiartce"<<endl;
-            text += "pole "+to_string(i+1)+" lezy w: " + to_string(przypisaneCwiartki[i]+1)+" Cwiartce\n";
+        for(int j=0;j<przypisaneCwiartki.size();j++){
+            cout<<"pole "<< i+1 <<" lezy w: "<< przypisaneCwiartki[j]+1<<" Cwiartce"<<endl;
+            text += "pole "+to_string(i+1)+" lezy w: " + to_string(przypisaneCwiartki[j]+1)+" Cwiartce\n";
         }
         double sumaJeczmienia = 0;
 
@@ -126,6 +126,10 @@ int uruchomProgram()
     plik >> ile_pol >> ile_browarow >> ile_karczm >> ile_skrzyzowan >> ile_krawedzi;
 
     vector<Pole> pola = polaICwiartkizPliku(plik, ile_pol);
+    if (pola.empty()) {
+        
+        return 1; 
+    }
     //vector browarow
     vector<Browar> browary;
     //vector karczm

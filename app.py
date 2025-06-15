@@ -157,10 +157,22 @@ def save_data():
     
 @app.route('/result')
 def show_result():
-    # Pobierz wynik z sesji i przekaż go do szablonu
     output_text = session.get('output', 'Brak danych do wyświetlenia.')
     return render_template('end.html', output=output_text)
 
+@app.route('/check')
+def check():
+    output = session.get('output', '')
+    error_map = {
+        "BLAD1": "Błąd: SARUMAN ZATAKOWAŁ WIOSKE.",
+        "BLAD2": "Błąd: SARUMAN ZNISZCZYŁ SHIRE.",
+        "BLAD3": "Błąd: SARUMAN SPALIŁ PLONY."
+    }
+    for code, message in error_map.items():
+        if code in output:
+            session['output'] = message
+            return redirect(url_for('error'))
+    return redirect(url_for('show_result'))
 @app.route('/upload_txt', methods=['POST'])
 def upload_txt():
     filename = request.form.get('nazwaPliku')
@@ -190,6 +202,7 @@ def upload_txt():
         result = subprocess.run([exe_path], capture_output=True, text=True, cwd=exe_dir)
         #session['output'] = result.stdout if result.stdout else "Program nie zwrócił żadnego wyniku."
         output = result.stdout.strip()
+        print(f"=== DEBUG OUTPUT ===\n{repr(output)}")
         error_map = {
             "BLAD1": "Błąd: SARUMAN ZATAKOWAŁ WIOSKE.",
             "BLAD2": "Błąd: SARUMAN ZNISZCZYŁ SHIRE.",
@@ -240,7 +253,7 @@ if __name__ == '__main__':
 
     
     if needs_recompile(exe_file, cpp_paths):
-        print("🔄 Kompiluję program główny...")
+        print("Kompiluję program główny...")
         compile_result = subprocess.run(
             ['g++'] + cpp_paths + ['-o', exe_file],
             capture_output=True,
@@ -252,7 +265,7 @@ if __name__ == '__main__':
         else:
             print("Kompilacja zakończona sukcesem.")
     if needs_recompile(exe_file_arch, cpp_paths_arch):
-        print("🔄 Kompiluję wyszukiwarkę...")
+        print("Kompiluję wyszukiwarkę...")
         compile_result_arch = subprocess.run(
             ['g++'] + cpp_paths_arch + ['-o', exe_file_arch],
             capture_output=True,
